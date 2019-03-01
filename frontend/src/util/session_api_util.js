@@ -10,9 +10,11 @@ export const setAuthToken = (token) => {
 };
 
 export const requestSignup = (userData) => {
+  debugger;
   return axios.post('/api/users/signup', userData);
 };
 
 export const requestLogin = (userData) => {
+  debugger;
   return axios.post('/api/users/login', userData);
 };

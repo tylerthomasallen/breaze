@@ -58,6 +58,8 @@ router.post('/signup', (req, res) => {
 
 router.post('/login', (req, res) => {
 
+  console.log('hello, user login')
+
   const { errors, isValid } = validateLoginInput(req.body);
 
   if (!isValid) {
@@ -69,7 +71,7 @@ router.post('/login', (req, res) => {
   User.findOne({ email })
     .then(user => {
       if (!user) {
-        errors.email = 'Incorrect email'
+        errors = 'Incorrect email'
         return res.status(404).json(errors);
       }
 
@@ -85,7 +87,7 @@ router.post('/login', (req, res) => {
               })
             })
           } else {
-            errors.password = 'Incorrect password'
+            errors = 'Incorrect password'
             return res.status(400).json(errors)
           }
         })
