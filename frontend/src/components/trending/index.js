@@ -1,9 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import Giphs from '../giphs';
 
-const Trending = () => {
+const Trending = ({trending}) => {
   return(
-    <h1>Trending</h1>
+    <div className="parent">
+      <Giphs giphs={trending} />
+    </div>
   )
 }
 
-export default Trending;
+const mapStateToProps = ({ giphs: { trending }}) => {
+  return {
+    trending
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(Trending); 

@@ -2,13 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/user_actions';
+import styles from './styles.scss';
 
 const NavBar = ({isAuthenticated, logout}) => {
   let userAction;
   
   if (isAuthenticated) {
-    userAction = ( 
-      <span className="logout" onClick={logout}>Logout</span>
+    userAction = (
+      <a onClick={logout}>
+        <span>Logout</span>
+      </a> 
     );
   } else {
     userAction = ( 

@@ -8,7 +8,10 @@ import jwt_decode from'jwt-decode';
 import { setAuthToken } from './util/session_api_util';
 import { logout } from './actions/user_actions';
 
-document.addEventListener('DOMContentLoaded', () => {
+import styles from './styles.scss';
+import { getTrending } from './actions/giph_actions';
+
+document.addEventListener('DOMContentLoaded', async () => {
   let store;
 
   // if a rueturning user has a session token stored in local storage
@@ -33,7 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
     store = configureStore({});
   }
 
+  await store.dispatch(getTrending())
 
   const root = document.getElementById('root');
-  ReactDOM.render(<Root store={store}/>, root);
+  ReactDOM.render(<Root store={store} />, root);
 });
