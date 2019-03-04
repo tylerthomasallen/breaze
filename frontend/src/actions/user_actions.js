@@ -18,12 +18,12 @@ export const logoutUser = () => ({
   type: RECEIVE_USER_LOGOUT
 });
 
-export const signupUser = user => dispatch => (
+export const signup = user => dispatch => (
   requestSignup(user).then(res => {
-    const { token } = res.data;
+    const { token, favorites } = res.data;
     localStorage.setItem('jwtToken', token);
     setAuthToken(token);
-    dispatch(loginUser(user))
+    dispatch(loginUser({favorites}))
   }), err => (
     dispatch(receiveErrors(err.response.data))
   )
@@ -31,10 +31,10 @@ export const signupUser = user => dispatch => (
 
 export const login = user => dispatch => (
   requestLogin(user).then(res => {
-    const { token } = res.data;
+    const { token, favorites } = res.data;
     localStorage.setItem('jwtToken', token);
     setAuthToken(token);
-    dispatch(loginUser(user))
+    dispatch(loginUser({favorites}))
   })
   .catch(err => {
     dispatch(receiveErrors(err.response.data));

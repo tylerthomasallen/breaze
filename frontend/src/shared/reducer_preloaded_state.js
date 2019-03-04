@@ -1,5 +1,5 @@
 
-export const USER_STATE = { isAuthenticated: false, id: '', token: '', favorites: []}
+export const USER_STATE = { isAuthenticated: false, favorites: []}
 
 export const GIPH_STATE = { trending: [], searchResults: [] };
 

@@ -78,12 +78,13 @@ router.post('/login', (req, res) => {
       bcrypt.compare(password, user.password)
         .then(isMatch => {
           if (isMatch) {
-            const payload = { id: user.id, email: user.email };
+            const payload = { id: user.id, email: user.email, favorites: user.favorites };
 
             jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
               res.json({
                 success: true,
-                token: "Bearer " + token
+                token: "Bearer " + token,
+                ...payload
               })
             })
           } else {
@@ -96,12 +97,13 @@ router.post('/login', (req, res) => {
 
 // getting the current user
 
-router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) => {
-  const { id, email } = req.user;
-  res.json({
-    id,
-    email
-  });
-})
+// router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) => {
+//   const { id, email, favorites } = req.user;
+//   res.json({
+//     id,
+//     email,
+//     favorites
+//   });
+// })
 
 module.exports = router;

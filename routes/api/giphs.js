@@ -16,7 +16,6 @@ router.get("/trending" , async (req, res) => {
     const formatted = [];
     trendingJSON.data.forEach(item => formatted.push({url: item.images.original.url, id: item.id}))
     res.json(formatted)
-    // res.json(trendingJSON);
   } catch(err) {
     console.log(err);
   }

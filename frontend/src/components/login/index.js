@@ -1,45 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { login } from '../../actions/user_actions';
+import UserForm from './user_form';
+import { Link } from 'react-router-dom';
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: ''
-    }
-
-    this.update = this.update.bind(this);
-    this.login = this.login.bind(this);
-  }
-
-  update(field) {
-    return ({ currentTarget: { value } }) => this.setState({[field]: value})
-  }
-
-  login() {
-    this.props.login( {...this.state} );
-  }
-
-  render() {
-    const { email, password } = this.state;
-    return(
-      <div className="parent">
-        <div className="login-form">
-          <input type="text" placeholder="Email" required value={email} onChange={this.update("email")} />
-          <input type="password" placeholder="Password" required value={password} onChange={this.update("password")} />
-          <div className="submit" onClick={this.login}>
-          Submit
-          </div>
-        </div>
-      </div>
-    )
-  }
-}
-
-const mapStateToProps = () => {
-  return({})
+const Login = ({login}) => {
+  const changeRoute = (
+    <Link to="signup">Sign Up</Link>
+  )
+  return <UserForm submit={login} message={'New to Giphys?'} changeRoute={changeRoute} />
 }
 
 const mapDispatchToProps = dispatch => {
@@ -49,6 +18,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(Login)
