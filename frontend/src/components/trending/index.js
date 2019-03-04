@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Giphs from '../giphs';
 
-const Trending = ({trending}) => {
+const Trending = ( {trending} ) => {
   return(
     <div className="parent">
       <Giphs giphs={trending} />
@@ -10,7 +10,7 @@ const Trending = ({trending}) => {
   )
 }
 
-const mapStateToProps = ({ giphs: { trending }}) => {
+const mapStateToProps = ( { giphs: { trending } } ) => {
   return {
     trending
   }

@@ -5,11 +5,11 @@ import Routes from './routes';
 
 const Root = ({store}) => {
   return(
-      <Provider store={store}>
-        <HashRouter>
-          <Routes />
-        </HashRouter>
-      </Provider>
+    <Provider store={store}>
+      <HashRouter>
+        <Routes />
+      </HashRouter>
+    </Provider>
   )
 }
 
