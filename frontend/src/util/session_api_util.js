@@ -16,3 +16,15 @@ export const requestSignup = (userData) => {
 export const requestLogin = (userData) => {
   return axios.post('/api/users/login', userData);
 };
+
+export const requestAddFavorite = (user, giph) => {
+  return axios.post('/api/users/addfavorite', {user, giph})
+}
+
+export const requestCurrentUser = (email) => {
+  return axios.get('/api/users/current', {
+    params: {
+      email
+    }
+  })
+}

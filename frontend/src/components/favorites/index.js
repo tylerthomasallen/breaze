@@ -1,9 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import Giphs from '../giphs';
 
-const Favorites = () => {
+const Favorites = ({user}) => {
   return(
-    <h1>Favorites</h1>
+    <div className="parent">
+      <Giphs giphs={user.favorites} />
+    </div>
   )
 }
 
-export default Favorites;
+const mapStateToProps = ( { user} ) => {
+  return {
+    user
+  }
+}
+
+export default connect(mapStateToProps)(Favorites);

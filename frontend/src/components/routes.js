@@ -3,6 +3,7 @@ import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import NavBar from './navbar';
+import Loading from './loading';
 import Trending from './trending';
 import Search from './search';
 import Favorites from './favorites';
@@ -10,9 +11,10 @@ import Login from './login';
 import Signup from './signup';
 
 const Routes = () => (
-  <div className="parent">
+  <div className="app-parent">
     
     <NavBar />
+    <Loading />
 
     <Switch>
       <Route exact path="/" component={Trending} />

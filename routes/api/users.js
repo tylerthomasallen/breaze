@@ -37,12 +37,13 @@ router.post('/signup', (req, res) => {
             newUser.password = hash;
             newUser.save()
               .then(user => {
-                const payload = { id: user.id, email: user.email };
+                const payload = { id: user.id, email: user.email, favorites: user.favorites };
 
                 jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
                   res.json({
                     success: true,
-                    token: "Bearer " + token
+                    token: "Bearer " + token,
+                    ...payload
                   })
                 })
               })
@@ -95,15 +96,43 @@ router.post('/login', (req, res) => {
     })
 })
 
-// getting the current user
+router.post('/addfavorite', async (req, res) => {
+  
+  console.log('hello addfavorite to user')
+  
+  const { user: { id, email } } = req.body;
+  console.log(email);
+  const { giph } = req.body;
 
-// router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) => {
-//   const { id, email, favorites } = req.user;
-//   res.json({
-//     id,
-//     email,
-//     favorites
-//   });
-// })
+  User.findByIdAndUpdate(id,
+    {$push: {favorites: giph}},
+    {safe: true, upsert: true, new: true},
+    (err, user) => {
+      console.log(user);
+      console.log(user.favorites);
+      if (err) return res.status(500).json(err);
+      return res.json({favorites: user.favorites})
+    })
+  }
+)
+
+router.get('/current', (req, res) => {
+  const { email } = req.query;
+  console.log(email);
+  User.findOne({ email })
+  .then(user => {
+    if (!user) {
+      errors = 'Incorrect email'
+      return res.status(404).json(errors);
+    }
+    const { id, email, favorites } = user;
+    console.log('hello')
+    res.json({
+      id,
+      email,
+      favorites
+    })
+  })
+})
 
 module.exports = router;

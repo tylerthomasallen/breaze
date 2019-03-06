@@ -8,8 +8,9 @@ import jwt_decode from'jwt-decode';
 import { setAuthToken } from './util/session_api_util';
 import { logout } from './actions/user_actions';
 
-import styles from './styles.scss';
-import { getTrending } from './actions/giph_actions';
+import './styles.scss';
+import { setLoading, loadApp } from './actions/loading_actions';
+import { getCurrentUser } from './actions/user_actions';
 
 document.addEventListener('DOMContentLoaded', async () => {
   let store;
@@ -21,10 +22,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // decode the token to obtain the users information
     const decodedUser = jwt_decode(localStorage.jwtToken);
-    const preloadedState = { user: { isAuthenticated: true }}
+    const { email } = decodedUser;
 
+    // authenticate the current user
+    const preloadedState = { user: { isAuthenticated: true }, loading: true }
+
+    // configure our redux store with preloadedState;
     store = configureStore(preloadedState);
 
+    // get our current user and their favorites
+    await store.dispatch(getCurrentUser(email));
+
+    // logout our current user if the cookie is expired
     const currentTime = Date.now() / 1000;
 
     if (decodedUser.exp < currentTime) {
@@ -33,10 +42,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
   } else {
-    store = configureStore({});
+
+    // configure our redux store with no preloaded state;
+    store = configureStore({ loading: true });
+   
   }
 
-  await store.dispatch(getTrending())
+  // do any actions needed to load the app, i.e. get trending giphs
+  await store.dispatch(loadApp());
+
+  // let our app know we are done loading, time to show the content
+  await store.dispatch(setLoading(false))
 
   const root = document.getElementById('root');
   ReactDOM.render(<Root store={store} />, root);

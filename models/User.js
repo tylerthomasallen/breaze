@@ -15,7 +15,7 @@ const UserSchema = new Schema({
     default: Date.now
   },
   favorites: {
-    type: Array,
+    type: [Object],
     default: []
   }
 });

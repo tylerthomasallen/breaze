@@ -17,17 +17,12 @@ export const getTrending = () => dispatch => (
   requestTrending().then(res => {
     const { data } = res;
     dispatch(receiveTrending(data))
-  }), err => {
-    console.log(err)
-  }
+  })
 )
 
 export const getSearch = (query) => dispatch => (
   requestSearch(query).then(res => {
     const { data } = res;
     dispatch(receiveSearch(data));
-  }), err => {
-    console.log(err);
-  }
+  })
 )
-

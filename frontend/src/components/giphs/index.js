@@ -1,11 +1,17 @@
 import React from 'react';
-import styles from './styles.scss';
+import './styles.scss';
+import Buttons from '../favorites/buttons';
 
 const Giphs = ({giphs}) => {
   return(
     <div className="parent">
       {giphs.map(giph => {
-        return <img src={giph.url} key={giph.id} className="giphs"/>
+        return (
+        <div className="giphs" key={giph.id}>
+          <img src={giph.url} alt="giph"/>
+          <Buttons giph={giph}/>
+        </div>
+        )
       })}
     </div>
   )
