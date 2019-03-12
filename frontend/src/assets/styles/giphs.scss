@@ -1,0 +1,31 @@
+@import './constants.scss';
+
+.giphs {
+  margin: 10px;
+  padding: 20px;
+  box-shadow: 2px 2px 2px 2px lightgrey;
+  border-radius: 3px;
+
+  .username {
+    font-weight: $title-weight;
+    padding: 5px;
+  }
+
+  img {
+    height: 300px;
+  }
+
+  .giph-section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    img {
+      height: 30px;
+      width: 30px;
+      object-fit: contain;
+      border-radius: 16px;
+      margin: 5px;
+    }
+  }
+}

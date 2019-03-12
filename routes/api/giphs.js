@@ -2,7 +2,23 @@ const express = require("express");
 const router = express.Router();
 const fetch = require("node-fetch");
 
-router.get("/test", (req, res) => res.json({msg: "This is the giphy route"}))
+// helper function to format the title response from the giph API
+
+const formattedTitle = (str) => {
+  const result = [];
+  const arr = str.split(' ');
+  
+  let curr = arr[0];
+  let i = 0;
+
+  while (curr !== 'GIF' && i < arr.length) {
+    result.push(curr)
+    i += 1;
+    curr = arr[i];
+  }
+
+  return result.join(' ');
+}
 
 router.get("/trending" , async (req, res) => {
   try {
@@ -14,8 +30,20 @@ router.get("/trending" , async (req, res) => {
     })
     const trendingJSON = await trending.json()
     const formatted = [];
-    trendingJSON.data.forEach(item => formatted.push({url: item.images.original.url, id: item.id}))
+    debugger;
+    
+    trendingJSON.data.forEach(item => formatted.push({
+      url: item.images.original.url, 
+      id: item.id,
+      title: formattedTitle(item.title),
+      username: item.user.display_name,
+      avatar: item.user.avatar_url
+        }
+      )
+    )
+    
     res.json(formatted)
+    
   } catch(err) {
     console.log(err);
   }

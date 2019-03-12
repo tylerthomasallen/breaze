@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/user_actions';
-import './styles.scss';
 
 const NavBar = ({isAuthenticated, logout}) => {
   let userAction;

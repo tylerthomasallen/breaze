@@ -9,7 +9,6 @@ export const receiveLoading = (payload) => ({
 
 
 export const setLoading = (boolean) => dispatch => {
-  debugger;
   return dispatch(receiveLoading(boolean))
 }
 

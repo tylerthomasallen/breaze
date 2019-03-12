@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addFavorite } from '../../actions/user_actions'
-import './styles.scss';
 
 class Buttons extends Component {
   constructor(props) {

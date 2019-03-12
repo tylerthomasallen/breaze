@@ -8,7 +8,7 @@ import jwt_decode from'jwt-decode';
 import { setAuthToken } from './util/session_api_util';
 import { logout } from './actions/user_actions';
 
-import './styles.scss';
+import '../src/assets/styles/parent.scss';
 import { setLoading, loadApp } from './actions/loading_actions';
 import { getCurrentUser } from './actions/user_actions';
 
