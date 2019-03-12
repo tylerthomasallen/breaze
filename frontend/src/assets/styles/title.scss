@@ -1,5 +1,8 @@
+@import './constants.scss';
+
 .title-container {
-  font-family: 'Pacifico';
+  font-family: $title-font-family;
   font-size: 36px;
   padding: 10px;
+  color: $eaze-blue;
 }

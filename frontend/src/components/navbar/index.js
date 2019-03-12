@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/user_actions';
+import SidebarContainer from '../sidebar';
+import Title from '../title';
 
 const NavBar = ({isAuthenticated, logout}) => {
   let userAction;
@@ -22,16 +24,8 @@ const NavBar = ({isAuthenticated, logout}) => {
   
   return(
     <div className="navbar-container">
-      <Link to={'/'}>
-        <i className="fas fa-home" />
-      </Link>
-      <Link to={'/search'}>
-        <i className="fas fa-search" />
-      </Link>
-      <Link to={'/favorites'}>
-        <i className="fas fa-heart" />
-      </Link>
-      {userAction}
+      <SidebarContainer />
+      <Title text="Giphagram" />
     </div>
   )
 }

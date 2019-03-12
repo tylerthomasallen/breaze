@@ -6,8 +6,8 @@ const Giphs = ( { giphs, title } ) => {
   return(
     <div className="giph-parent">
       <Title text={title} />
-      {giphs.map(giph => {
-        return <Giph giph={giph} />
+      {giphs.map((giph, idx) => {
+        return <Giph giph={giph} key={`${giph.id}-${idx}`}/>
       })}
     </div>
   )
