@@ -4,7 +4,7 @@ import Buttons from '../favorites/buttons';
 const Giphs = ({giphs}) => {
   debugger;
   return(
-    <div className="parent">
+    <div className="giph-parent">
       {giphs.map(giph => {
         return (
         <div className="giphs" key={giph.id}>
@@ -14,13 +14,17 @@ const Giphs = ({giphs}) => {
             <h1 className="username">{giph.username}</h1>
           </div>
 
-          <img src={giph.url} alt="giph"/>
+          <img src={giph.url} className="giph" alt="giph"/>
 
+          <div className="giph-section">
+            <Buttons giph={giph}/>
+          </div>
+          
           <div className="giph-section">
             <h1 className="username">{giph.username}</h1>
             <span className="title">{giph.title}</span>
-            <Buttons giph={giph}/>
           </div>
+
         </div>
         )
       })}

@@ -1,13 +1,14 @@
+@import './constants.scss';
+
 .buttons-container {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   text-decoration: none;
   cursor: auto;
 
   i {
     cursor: pointer;
     font-size: 28px;
-    color: red;
-    margin: 10px;
+    color: $text-color;
   }
 }

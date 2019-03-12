@@ -1,26 +1,35 @@
 @import './constants.scss';
 
+.giph-parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .giphs {
   margin: 10px;
-  padding: 20px;
-  box-shadow: 2px 2px 2px 2px lightgrey;
+  // box-shadow: 2px 2px 2px 2px lightgrey;
   border-radius: 3px;
+  border: 1px solid #e6e6e6;
 
   .username {
     font-weight: $title-weight;
-    padding: 5px;
+    padding-right: 5px;
   }
 
-  img {
-    height: 300px;
+  .giph {
+    width: 100vw;
+    max-width: $giph-width;
   }
 
   .giph-section {
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    padding: 10px;
 
-    img {
+    .avatar {
       height: 30px;
       width: 30px;
       object-fit: contain;
