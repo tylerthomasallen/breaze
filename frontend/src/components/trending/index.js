@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Giphs from '../giphs';
+import Title from '../title';
 
-const Trending = ( {trending} ) => {
+const Trending = ( { trending } ) => {
   return(
     <div className="parent">
-      <Giphs giphs={trending} />
+      <Giphs giphs={trending} title="Trending"/>
     </div>
   )
 }

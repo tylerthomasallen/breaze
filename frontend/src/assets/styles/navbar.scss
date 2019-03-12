@@ -1,3 +1,5 @@
+@import './constants.scss';
+
 .navbar-container {
   width: 100%;
   display: flex;
@@ -7,7 +9,7 @@
   padding: 20px;
   
   a {
-    color: red;
+    color: $eaze-blue;
     font-size: 24px;
     cursor: pointer;
     text-decoration: none;
