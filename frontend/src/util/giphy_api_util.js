@@ -1,13 +1,18 @@
 import axios from 'axios';
 
-export const requestTrending = () => {
-  return axios.get('/api/giphs/trending');
+export const requestTrending = (offset) => {
+  return axios.get('/api/giphs/trending', {
+    params: {
+      offset
+    }
+  });
 };
 
-export const requestSearch = (query) => {
+export const requestSearch = (query, offset) => {
   return axios.get('/api/giphs/search', {
     params: {
-      query
+      query,
+      offset
     }
   })
 }

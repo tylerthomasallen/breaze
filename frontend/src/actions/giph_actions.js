@@ -13,15 +13,15 @@ export const receiveSearch = payload => ({
   payload
 })
 
-export const getTrending = () => dispatch => (
-  requestTrending().then(res => {
+export const getTrending = (offset) => dispatch => (
+  requestTrending(offset).then(res => {
     const { data } = res;
     dispatch(receiveTrending(data))
   })
 )
 
-export const getSearch = (query) => dispatch => (
-  requestSearch(query).then(res => {
+export const getSearch = (query, offset) => dispatch => (
+  requestSearch(query, offset).then(res => {
     const { data } = res;
     dispatch(receiveSearch(data));
   })

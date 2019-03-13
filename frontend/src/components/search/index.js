@@ -31,9 +31,11 @@ class Search extends Component {
 
   async handleSearch() {
     const { input } = this.state;
-    const { getSearch } = this.props;
+    const { getSearch, searchResults } = this.props;
+    const offset = searchResults.length;
+
     if (input.length >= 2) {
-      await getSearch(input);
+      await getSearch(input, offset);
       this.setState( { input: ''} )
     }
   }

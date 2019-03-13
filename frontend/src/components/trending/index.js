@@ -1,17 +1,39 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Scroll from '../scroll';
 import Title from '../title';
 import Giphs from '../giphs';
+import { getTrending } from '../../actions/giph_actions';
+import { debounce } from 'lodash';
 
+class Trending extends Component {
+  constructor(props) {
+    super(props);
 
-const Trending = ( { trending } ) => {
-  return(
-    <div className="parent">
-      <Title text="Trending" />
-      <Giphs giphs={trending}/>
-    </div>
-  )
+    this.handleGetTrending = debounce(this.handleGetTrending.bind(this), 500);
+
+  }
+
+  handleGetTrending() {
+    const { getTrending, trending } = this.props;
+    const offset = trending.length + 1;
+    debugger;
+    
+    getTrending(offset)
+  }
+
+  
+  render() {
+    const { trending } = this.props;
+    return(
+      <Scroll performAction={this.handleGetTrending}>
+        <Title text="Trending" />
+        <Giphs giphs={trending}/>
+      </Scroll>
+    )
+  }
 }
+
 
 const mapStateToProps = ( { giphs: { trending } } ) => {
   return {
@@ -19,6 +41,13 @@ const mapStateToProps = ( { giphs: { trending } } ) => {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    getTrending: (offset) => dispatch(getTrending(offset))
+  }
+}
+
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Trending); 

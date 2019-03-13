@@ -14,5 +14,5 @@ export const setLoading = (boolean) => dispatch => {
 
 
 export const loadApp = () => async dispatch => (
-  await dispatch(getTrending())
+  await dispatch(getTrending(0))
 )
