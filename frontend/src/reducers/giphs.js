@@ -1,5 +1,5 @@
 import { GIPH_STATE } from '../shared/reducer_preloaded_state';
-import { RECEIVE_TRENDING, RECEIVE_SEARCH } from '../actions/giph_actions';
+import { RECEIVE_TRENDING, RECEIVE_SEARCH, CLEAR_SEARCH } from '../actions/giph_actions';
 
 const giphReducer = (state = GIPH_STATE, action) => {
   switch(action.type) {
@@ -13,6 +13,10 @@ const giphReducer = (state = GIPH_STATE, action) => {
       const { searchResults } = state;
       const newSearch = searchResults.concat(action.payload)
       return { ...state, searchResults: newSearch }
+
+    case CLEAR_SEARCH:
+      debugger;
+      return { ...state, searchResults: [] }
     
     default:
       return  { ...state }

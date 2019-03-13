@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getSearch } from '../../actions/giph_actions';
+import { getSearch, clearSearch } from '../../actions/giph_actions';
 import { connect } from 'react-redux';
 import { debounce } from 'lodash';
 import Giphs from '../giphs';
@@ -11,7 +11,8 @@ class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: ''
+      input: '',
+      lastInput: ''
     }
 
     this.update = this.update.bind(this);
@@ -31,14 +32,20 @@ class Search extends Component {
   }
 
   async handleSearch() {
-    const { input } = this.state;
-    const { getSearch, searchResults } = this.props;
+    const { input, lastInput } = this.state;
+    const { getSearch, clearSearch, searchResults } = this.props;
     const offset = searchResults.length;
-    debugger;
 
-    if (input.length >= 2) {
-      await getSearch(input, offset);
+    if (lastInput !== input) {
+      debugger;
+      await clearSearch();
     }
+
+    if (input.length >= 1) {
+      await getSearch(input, offset);
+      await this.setState( { lastInput: input } )
+    }
+
   }
 
   render() {
@@ -67,7 +74,8 @@ const mapStateToProps = ( { giphs: { searchResults }} ) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getSearch: (query, offset) => dispatch(getSearch(query, offset))
+    getSearch: (query, offset) => dispatch(getSearch(query, offset)),
+    clearSearch: () => dispatch(clearSearch())
   }
 }
 
