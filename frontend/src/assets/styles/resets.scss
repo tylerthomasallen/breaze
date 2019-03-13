@@ -34,17 +34,24 @@ button:focus {
   outline: none;
 }
 
+html, #root, body, .parent {
+  height: 100%;
+  width: 100%
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   color: $text-color;
   font-size: $font-size;
+  background-color: $background-white;
 }
 
 .parent {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .app-parent {

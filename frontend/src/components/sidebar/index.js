@@ -12,16 +12,15 @@ class SidebarContainer extends Component {
 
     this.openSidebar = this.openSidebar.bind(this);
     this.closeSidebar = this.closeSidebar.bind(this);
-    debugger;
   }
 
   openSidebar() {
-    debugger;
     this.setState( { sidebarOpen: true } );
   }
 
   closeSidebar() {
     this.setState( { sidebarOpen: false } )
+    window.scrollTo(0, 0)
   }
 
   render() {

@@ -3,6 +3,7 @@ import { getSearch } from '../../actions/giph_actions';
 import { connect } from 'react-redux';
 import { debounce } from 'lodash';
 import Giphs from '../giphs';
+import Title from '../title';
 
 class Search extends Component {
 
@@ -13,22 +14,27 @@ class Search extends Component {
     }
 
     this.update = this.update.bind(this);
-    this.search = debounce(this.search.bind(this), 500);
+    this.handleSearch = debounce(this.handleSearch.bind(this), 500);
+
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   update(field) {
     return ({ currentTarget: { value } }) => this.setState({[field]: value})
   }
 
-  // async componentDidMount() {
-  //   this.props.getSearch('test');
-  // }
+  handleKeyPress( { key } ) {
+    if (key === 'Enter') {
+      this.handleSearch()
+    }
+  }
 
-  search() {
+  async handleSearch() {
     const { input } = this.state;
     const { getSearch } = this.props;
     if (input.length >= 2) {
-      getSearch(input);
+      await getSearch(input);
+      this.setState( { input: ''} )
     }
   }
 
@@ -38,9 +44,13 @@ class Search extends Component {
     
     return (
       <div className="parent">
-        <input type="text" placeholder="Search" value={input} onChange={this.update("input")} />
-        <span onClick={this.search}>Search!</span>
-        <Giphs giphs={searchResults} />
+        <Title text="Search" />
+
+        <div className="searchbar" onKeyPress={this.handleKeyPress}>
+          <input type="text" placeholder="The world is waiting..." value={input} onChange={this.update("input")} />
+          {/* <i class="fas fa-times-circle" /> */}
+        </div>
+        <Giphs giphs={searchResults}/>
       </div>
     )
   }
