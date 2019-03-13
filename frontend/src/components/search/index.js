@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { debounce } from 'lodash';
 import Giphs from '../giphs';
 import Title from '../title';
+import Scroll from '../scroll';
 
 class Search extends Component {
 
@@ -33,10 +34,10 @@ class Search extends Component {
     const { input } = this.state;
     const { getSearch, searchResults } = this.props;
     const offset = searchResults.length;
+    debugger;
 
     if (input.length >= 2) {
       await getSearch(input, offset);
-      this.setState( { input: ''} )
     }
   }
 
@@ -45,7 +46,7 @@ class Search extends Component {
     const { input } = this.state;
     
     return (
-      <div className="parent">
+      <Scroll performAction={this.handleSearch}>
         <Title text="Search" />
 
         <div className="searchbar" onKeyPress={this.handleKeyPress}>
@@ -53,7 +54,7 @@ class Search extends Component {
           {/* <i class="fas fa-times-circle" /> */}
         </div>
         <Giphs giphs={searchResults}/>
-      </div>
+      </Scroll>
     )
   }
 }
@@ -66,7 +67,7 @@ const mapStateToProps = ( { giphs: { searchResults }} ) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getSearch: (query) => dispatch(getSearch(query))
+    getSearch: (query, offset) => dispatch(getSearch(query, offset))
   }
 }
 

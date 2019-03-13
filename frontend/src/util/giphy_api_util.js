@@ -9,6 +9,7 @@ export const requestTrending = (offset) => {
 };
 
 export const requestSearch = (query, offset) => {
+  debugger;
   return axios.get('/api/giphs/search', {
     params: {
       query,

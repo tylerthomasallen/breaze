@@ -10,7 +10,9 @@ const giphReducer = (state = GIPH_STATE, action) => {
       return { ...state, trending: newTrending }
     
     case RECEIVE_SEARCH:
-      return { ...state, searchResults: action.payload }
+      const { searchResults } = state;
+      const newSearch = searchResults.concat(action.payload)
+      return { ...state, searchResults: newSearch }
     
     default:
       return  { ...state }

@@ -20,9 +20,14 @@ export const getTrending = (offset) => dispatch => (
   })
 )
 
-export const getSearch = (query, offset) => dispatch => (
-  requestSearch(query, offset).then(res => {
-    const { data } = res;
-    dispatch(receiveSearch(data));
-  })
-)
+export const getSearch = (query, offset) => dispatch => {
+  debugger;
+
+  return(
+    requestSearch(query, offset).then(res => {
+      const { data } = res;
+      dispatch(receiveSearch(data));
+    })
+  )
+}
+

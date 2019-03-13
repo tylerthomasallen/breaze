@@ -16,7 +16,7 @@ class Trending extends Component {
 
   handleGetTrending() {
     const { getTrending, trending } = this.props;
-    const offset = trending.length + 1;
+    const offset = trending.length;
     debugger;
     
     getTrending(offset)
