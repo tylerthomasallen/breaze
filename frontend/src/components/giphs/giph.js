@@ -1,7 +1,15 @@
 import React from 'react';
 import Buttons from '../favorites/buttons';
 
-const Giph = ( { giph } ) => {
+const Giph = ( { giph, last, setLoading } ) => {
+  
+  let img;
+  if (last === true) {
+    img = <img src={giph.url} className="giph" alt="giph" onLoad={() => setLoading(false)}/>
+  } else {
+    img = <img src={giph.url} className="giph" alt="giph"/>
+  }
+
   return(
     <div className="giphs" key={giph.id}>
       
@@ -10,7 +18,7 @@ const Giph = ( { giph } ) => {
         <h1 className="username">{giph.username}</h1>
       </div>
 
-      <img src={giph.url} className="giph" alt="giph"/>
+      {img}
 
       <div className="giph-section">
         <Buttons giph={giph}/>
