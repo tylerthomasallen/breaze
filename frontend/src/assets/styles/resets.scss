@@ -13,7 +13,7 @@ fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section, summary,
-time, mark, audio, video {
+time, mark, audio, video, a {
   
   margin:0;
   padding:0;
@@ -24,7 +24,11 @@ time, mark, audio, video {
   background:transparent;
   line-height: none;
   font-weight: normal;
+  text-decoration: none;
+}
 
+a {
+  cursor: pointer;
 }
 
 input:focus,
@@ -40,7 +44,7 @@ html, #root, body, .parent {
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: $eaze-font-family;
   margin: 0;
   color: $text-color;
   font-size: $font-size;

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const fetch = require("node-fetch");
 
-// helper function to format the title response from the giph API
+// helper functions to format responses from the giph API
 
 const formattedTitle = (str) => {
   const result = [];
@@ -20,24 +20,38 @@ const formattedTitle = (str) => {
   return result.join(' ');
 }
 
+const getUserInfo = (user, field) => {
+  if (user !== undefined) {
+    return user[field]
+  }
+
+  return null;
+}
+
 router.get("/trending" , async (req, res) => {
+  let { offset } = req.query;
+
+  if (offset >= 1) {
+    offset += 1;
+  }
+  
   try {
-    const trending = await fetch('https://api.giphy.com/v1/gifs/trending?limit=15', {
+    const trending = await fetch(`https://api.giphy.com/v1/gifs/trending?limit=5&offset=${offset}`, {
       headers: {
         "Content-Type": "application/json",
         "api_key": "cCMV85rqh1Z5dmF52GKxGqFlrcFd87R2",
       }
     })
+
     const trendingJSON = await trending.json()
     const formatted = [];
-    debugger;
     
     trendingJSON.data.forEach(item => formatted.push({
       url: item.images.original.url, 
       id: item.id,
       title: formattedTitle(item.title),
-      username: item.user.display_name,
-      avatar: item.user.avatar_url
+      username: getUserInfo(item.user, 'display_name') || 'Anonymous',
+      avatar: getUserInfo(item.user, 'avatar_url') || 'https://i.imgur.com/zPKzLoe.gif'
         }
       )
     )
@@ -50,10 +64,14 @@ router.get("/trending" , async (req, res) => {
 })
 
 router.get("/search", async (req, res) => {
-  const { query } = req.query;
-  console.log(query);
+  let { query, offset } = req.query;
+  
+  if (offset >= 1) {
+    offset += 1;
+  }
+  
   try {
-    const search = await fetch(`https://api.giphy.com/v1/gifs/search?q=${query}`, {
+    const search = await fetch(`https://api.giphy.com/v1/gifs/search?q=${query}&limit=5&offset=${offset}`, {
       headers: {
         "Content-Type": "application/json",
         "api_key": "cCMV85rqh1Z5dmF52GKxGqFlrcFd87R2",
@@ -61,7 +79,17 @@ router.get("/search", async (req, res) => {
     })
     const searchJSON = await search.json();
     const formatted = [];
-    searchJSON.data.forEach(item => formatted.push({url: item.images.original.url, id: item.id}))
+    
+    searchJSON.data.forEach(item => formatted.push({
+      url: item.images.original.url, 
+      id: item.id,
+      title: formattedTitle(item.title),
+      username: getUserInfo(item.user, 'display_name') || 'Anonymous',
+      avatar: getUserInfo(item.user, 'avatar_url') || 'https://i.imgur.com/zPKzLoe.gif'
+        }
+      )
+    )
+
     res.json(formatted);
   } catch(err) {
     console.log(err);
