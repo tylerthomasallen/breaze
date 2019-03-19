@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Sidebar from 'react-sidebar';
 import SidebarContent from './sidebar_content';
 
 
@@ -12,31 +11,35 @@ class SidebarContainer extends Component {
 
     this.openSidebar = this.openSidebar.bind(this);
     this.closeSidebar = this.closeSidebar.bind(this);
+    this.renderSidebar = this.renderSidebar.bind(this);
   }
 
-  openSidebar() {
-    this.setState( { sidebarOpen: true } );
+  async openSidebar() {
+    await this.setState( { sidebarOpen: true } );
   }
 
-  closeSidebar() {
-    this.setState( { sidebarOpen: false } )
-    window.scrollTo(0, 0)
+  async closeSidebar() {
+    await this.setState( { sidebarOpen: false } )
+  }
+
+  renderSidebar() {
+    const { sidebarOpen } = this.state;
+
+    if (sidebarOpen) {
+      return <SidebarContent closeSidebar={this.closeSidebar}/>
+    } else {
+      return null;
+    }
   }
 
   render() {
-    const { sidebarOpen } = this.state;
     return(
       <div className="sidebar">
-        <Sidebar
-          sidebar={<SidebarContent closeSidebar={this.closeSidebar}/>}
-          open={sidebarOpen}
-          styles={ { sidebar: { background: "white", height: "100vh" }, root: { position: 'unset'} } }
-          >
-          <div className="menu-button">
-            <i className="fas fa-bars" onClick={this.openSidebar} />
-          </div>
-          
-        </Sidebar>
+        <div className="menu-button">
+          <i className="fas fa-bars" onClick={this.openSidebar} />
+        </div>
+
+        {this.renderSidebar()}
       </div>
     )
   }
