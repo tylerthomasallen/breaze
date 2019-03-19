@@ -7,19 +7,22 @@ class Giph extends Component {
     super(props)
 
     this.state = {
-      loading: true
+      loading: true,
+      loadingClass: 'giph-loading'
     }
 
     this.finishLoading = this.finishLoading.bind(this);
+    
   }
 
   async finishLoading() {
     await this.setState( { loading: false } )
+    await this.setState( { loadingClass: "" } )
   }
 
   render() {
     const { giph } = this.props;
-    const { loading } = this.state;
+    const { loading, loadingClass } = this.state;
     
     return(
       <div className="giphs" key={giph.id}>
@@ -29,8 +32,9 @@ class Giph extends Component {
           <h1 className="username">{giph.username}</h1>
         </div>
 
-        <img src={giph.url} className="giph" alt="giph" onLoad={this.finishLoading} />
         <GiphLoading loading={loading} />
+        <img src={giph.url} className={`giph ${loadingClass}`} alt="giph" onLoad={this.finishLoading} />
+        
 
         <div className="giph-section">
           <Buttons giph={giph}/>
