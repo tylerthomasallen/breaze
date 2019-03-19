@@ -5,9 +5,9 @@ import Giph from './giph';
 
 const Giphs = ( { giphs, setLoading } ) => {
   
-  if (giphs.length >= 1) {
-    setLoading(true);
-  }
+  // if (giphs.length >= 1) {
+  //   setLoading(true);
+  // }
   
   return(
     <div className="parent">

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const Loading = ({loading}) => {
+const Loading = ( { loading } ) => {
   if (loading) {
     return(
       <div className="loading">

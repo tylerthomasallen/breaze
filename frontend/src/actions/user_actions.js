@@ -35,7 +35,8 @@ export const clearErrors = () => dispatch => (
 
 export const getCurrentUser = (email) => dispatch => (
   requestCurrentUser(email).then(res => {
-    dispatch(receiveCurrentUser({...res.data}))
+    debugger;
+    dispatch(receiveCurrentUser( { ...res.data } ) )
   })
 )
 
