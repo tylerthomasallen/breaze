@@ -1,28 +1,5 @@
 @import './constants.scss';
 
-@keyframes lds-bars {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@-webkit-keyframes lds-bars {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
 .lds-bars {
   width: 100vw;
   height: 500px;
@@ -63,4 +40,28 @@
 .lds-bars div:nth-child(4) {
   left: 150px;
   background: red;
+}
+
+@keyframes lds-bars {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes lds-bars {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
 }

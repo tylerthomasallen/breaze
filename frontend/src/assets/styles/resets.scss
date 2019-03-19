@@ -39,8 +39,8 @@ button:focus {
 }
 
 html, #root, body, .parent, .app-parent {
-  height: 100%;
-  width: 100%
+  min-height: 100%;
+  min-width: 100%
 }
 
 body {
