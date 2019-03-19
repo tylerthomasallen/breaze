@@ -14,7 +14,7 @@ const Giph = ( { giph, last, setLoading } ) => {
     <div className="giphs" key={giph.id}>
       
       <div className="giph-section">
-        <img src={giph.avatar} className="avatar" />
+        <img src={giph.avatar} className="avatar" alt="" />
         <h1 className="username">{giph.username}</h1>
       </div>
 

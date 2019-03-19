@@ -1,21 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { MAIN_TITLE } from '../../shared/constants';
 
-const Title = ( { text } ) => {
+const Title = ( { text, styles } ) => {
   const title = <h1>{text}</h1>
-
-  // if (text === MAIN_TITLE) {
-  //   debugger;
-  //   return(
-  //     <Link to={'/trending'} className="title-container">
-  //       {title}
-  //     </Link>
-  //   )
-  // } else {
-    
+   
   return(
-    <div className="title-container">
+    <div className="title-container" style={ { ...styles } }>
       {title}
     </div>
   )

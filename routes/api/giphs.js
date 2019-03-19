@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const fetch = require("node-fetch");
+const passport = require('passport');
+const Giph = require('../../models/Giph');
 
 // helper functions to format responses from the giph API
 
@@ -95,5 +97,54 @@ router.get("/search", async (req, res) => {
     console.log(err);
   }
 })
+
+router.get('/getfavorites', async (req, res) => {
+  const { id } = req.query;
+  
+  const favRes = await Giph.find( { favorite_id: id } );
+  
+  const favorites = favRes.map( ( { avatar, id, title, url, username } ) => {
+    return { avatar, id, title, url, username }
+  })
+
+  res.json( { favorites } );
+
+})
+
+router.post('/addfavorite', 
+  passport.authenticate('jwt', { session: false }), 
+  async (req, res) => {
+    const { giph, user } = req.body.params;
+
+    const favRes = await Giph.find( { favorite_id: user.id } )
+    const favIds = favRes.map( ( { id } ) => id );
+
+    if (favIds.includes(giph.id)) {
+      res.status(400).json('Giph already a favorite')
+    }
+
+    const newGiph = new Giph({
+      favorite_id: user.id,
+      ...giph
+    });
+
+
+    await newGiph.save();
+    res.status(200);
+
+    }
+  );
+
+  router.delete('/deletefavorite',
+    passport.authenticate('jwt', { session: false }), 
+    async (req, res) => {
+      const { giph, user } = req.body.params;
+
+      const giphRes = await Giph.deleteOne( {favorite_id: user_id, id: giph.id } )
+
+      debugger;
+      res.status(200);
+    }
+  )
 
 module.exports = router;

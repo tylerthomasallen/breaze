@@ -1,14 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { login } from '../../actions/user_actions';
-import UserForm from './user_form';
+import { login } from '../../../actions/user_actions';
+import UserForm from '../user_form';
 import { Link } from 'react-router-dom';
 
 const Login = ({login}) => {
   const changeRoute = (
     <Link to="signup">Sign Up</Link>
   )
-  return <UserForm submit={login} message={'New to Giphys?'} changeRoute={changeRoute} />
+  return( 
+    <UserForm 
+    submit={login}
+    title={'Log back in and start giphing'}
+    type={'Login'}
+    message={'New to Giphys?'} 
+    changeRoute={changeRoute} 
+    />
+  )
 }
 
 const mapDispatchToProps = dispatch => {

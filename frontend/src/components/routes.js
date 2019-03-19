@@ -7,15 +7,24 @@ import Loading from './loading';
 import Trending from './trending';
 import Search from './search';
 import Favorites from './favorites';
-import Login from './login';
-import Signup from './signup';
+import Login from './user/login'
+import Signup from './user/signup';
 
-const Routes = () => (
-  <div className="app-parent">
-    
-    <NavBar />
+const Routes = () => {
+  let navBar = <NavBar />
+
+  const noNavPath = { '#/signup': true, '#/login': true };
+
+  if (noNavPath[window.location.hash] === true) {
+    navBar = null;
+  }
+  debugger;
+
+  return(
+    <div className="parent">
+    {navBar}
     <Loading />
-
+  
     <Switch>
       <Route exact path="/trending" component={Trending} />
       <Route exact path="/search" component={Search} />
@@ -24,8 +33,11 @@ const Routes = () => (
       <AuthRoute exact path="/signup" component={Signup} />
       <Redirect to="/trending" />
     </Switch>
-
+  
   </div>
-);
+
+  )
+}
+
 
 export default Routes;

@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Title from '../title';
+import SidebarUser from './sidebar_user';
 
 const SidebarContent = ( { closeSidebar } ) => {
   return(
     <div className="sidebar-container">
 
     <div className="upper-sidebar">
+      
       <div className="sidebar-title">
         <Title text="Giphagram" />
         <i className="fas fa-times" onClick={closeSidebar}></i>
@@ -26,18 +28,12 @@ const SidebarContent = ( { closeSidebar } ) => {
         <i className="fas fa-heart" />
         Favs
       </Link>
+
     </div>
-      
 
       <div className="user-auth">
 
-        <Link to={'/signup'} onClick={closeSidebar}>
-          SIGN UP
-        </Link>
-
-        <Link to={'/login'} onClick={closeSidebar}>
-          LOGIN
-        </Link>
+        <SidebarUser closeSidebar={closeSidebar} />
 
       </div>
 

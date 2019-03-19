@@ -38,7 +38,7 @@ button:focus {
   outline: none;
 }
 
-html, #root, body, .parent {
+html, #root, body, .parent, .app-parent {
   height: 100%;
   width: 100%
 }
@@ -53,12 +53,7 @@ body {
 
 .parent {
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
-  overflow-y: auto;
 }
 
-.app-parent {
-  position: relative;
-}

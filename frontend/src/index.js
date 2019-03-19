@@ -6,11 +6,11 @@ import configureStore from './store';
 import jwt_decode from'jwt-decode';
 
 import { setAuthToken } from './util/session_api_util';
-import { logout } from './actions/user_actions';
+import { logout, getCurrentUser } from './actions/user_actions';
 
 import '../src/assets/styles/parent.scss';
 import { loadApp } from './actions/loading_actions';
-import { getCurrentUser } from './actions/user_actions';
+import { getFavorites } from './actions/giph_actions';
 
 document.addEventListener('DOMContentLoaded', async () => {
   let store;
@@ -22,16 +22,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // decode the token to obtain the users information
     const decodedUser = jwt_decode(localStorage.jwtToken);
-    const { email } = decodedUser;
+    const { email, id } = decodedUser;
 
     // authenticate the current user
     const preloadedState = { user: { isAuthenticated: true } }
+    debugger;
 
     // configure our redux store with preloadedState;
     store = configureStore(preloadedState);
 
     // get our current user and their favorites
     await store.dispatch(getCurrentUser(email));
+    await store.dispatch(getFavorites(id));
 
     // logout our current user if the cookie is expired
     const currentTime = Date.now() / 1000;

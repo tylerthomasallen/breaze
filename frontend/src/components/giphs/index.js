@@ -10,7 +10,7 @@ const Giphs = ( { giphs, setLoading } ) => {
   }
   
   return(
-    <div className="giph-parent">
+    <div className="parent">
       
       {giphs.map((giph, idx) => {
         

@@ -37,7 +37,6 @@ class Search extends Component {
     const offset = searchResults.length;
 
     if (lastInput !== input) {
-      debugger;
       await clearSearch();
     }
 

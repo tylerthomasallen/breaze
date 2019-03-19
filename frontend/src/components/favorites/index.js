@@ -1,18 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Giphs from '../giphs';
+import Title from '../title';
 
-const Favorites = ({user}) => {
+const Favorites = ( { favorites } ) => {
   return(
     <div className="parent">
-      <Giphs giphs={user.favorites} />
+      <Title text={'Favorites'} />
+      <Giphs giphs={favorites} />
     </div>
   )
 }
 
-const mapStateToProps = ( { user} ) => {
+const mapStateToProps = ( { giphs: { favorites } }  ) => {
   return {
-    user
+    favorites
   }
 }
 

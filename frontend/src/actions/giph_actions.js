@@ -1,8 +1,14 @@
-import { requestTrending, requestSearch } from "../util/giphy_api_util";
+import { requestTrending, requestSearch, requestAddFavorite, requestGetFavorites } from "../util/giphy_api_util";
 
 export const RECEIVE_TRENDING = 'RECEIVE_TRENDING';
 export const RECEIVE_SEARCH = 'RECEIVE_SEARCH';
+export const RECEIVE_FAVORITES = 'RECEIVE_FAVORITES';
 export const CLEAR_SEARCH = 'CLEAR_SEARCH';
+
+export const receiveFavorites = payload => ({
+  type: RECEIVE_FAVORITES,
+  payload
+})
 
 export const receiveClearSearch = () => ({
   type: CLEAR_SEARCH
@@ -33,7 +39,6 @@ export const getTrending = (offset) => dispatch => {
 }
 
 export const getSearch = (query, offset) => dispatch => {
-  
   return(
     requestSearch(query, offset).then(res => {
       const { data } = res;
@@ -41,4 +46,19 @@ export const getSearch = (query, offset) => dispatch => {
     })
   )
 }
+
+export const getFavorites = id => async dispatch => {
+  const res = await requestGetFavorites(id);
+  const { favorites } = res.data;
+  dispatch(receiveFavorites(favorites))
+}
+
+export const addFavorite = (user, giph) => dispatch => (
+  requestAddFavorite(user, giph).then(res => {
+    if (res.status === 200) {
+      debugger;
+      dispatch(getFavorites(user.id))
+    }
+  })
+)
 

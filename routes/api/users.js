@@ -59,8 +59,6 @@ router.post('/signup', (req, res) => {
 
 router.post('/login', (req, res) => {
 
-  console.log('hello, user login')
-
   const { errors, isValid } = validateLoginInput(req.body);
 
   if (!isValid) {
@@ -96,41 +94,44 @@ router.post('/login', (req, res) => {
     })
 })
 
-router.post('/addfavorite', async (req, res) => {
+// router.post('/addfavorite', async (req, res) => {
   
-  console.log('hello addfavorite to user')
-  
-  const { user: { id, email } } = req.body;
-  console.log(email);
-  const { giph } = req.body;
+//   const { user: { id, favorites }, giph } = req.body;
+//   const newFavorites = [ giph, ...favorites ];
+//   debugger;
 
-  User.findByIdAndUpdate(id,
-    {$push: {favorites: giph}},
-    {safe: true, upsert: true, new: true},
-    (err, user) => {
-      console.log(user);
-      console.log(user.favorites);
-      if (err) return res.status(500).json(err);
-      return res.json({favorites: user.favorites})
-    })
-  }
-)
+//   User.findOneAndUpdate(id,
+//     { $set: { favorites: newFavorites } },
+//     { safe: true, upsert: true, new: true },
+//     (err, user) => {
+//       debugger;
+//       if (err) return res.status(500).json(err);
+//       return res.json({favorites: user.favorites})
+//     })
+    
+//     // User.findByIdAndUpdate(id,
+//     //   { $push: { favorites: giph } },
+//     //   { safe: true, upsert: true, new: true },
+//     //   (err, user) => {
+//     //     if (err) return res.status(500).json(err);
+//     //     return res.json({favorites: user.favorites})
+//     //   })
+//   }
+// )
 
 router.get('/current', (req, res) => {
   const { email } = req.query;
-  console.log(email);
-  User.findOne({ email })
+  User.findOne( { email } )
   .then(user => {
     if (!user) {
       errors = 'Incorrect email'
       return res.status(404).json(errors);
     }
-    const { id, email, favorites } = user;
-    console.log('hello')
+    const { id, email } = user;
+    debugger;
     res.json({
       id,
-      email,
-      favorites
+      email
     })
   })
 })
