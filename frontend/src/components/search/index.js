@@ -56,7 +56,6 @@ class Search extends Component {
     await this.setState( { input: "" } );
     await this.setState( { lastInput: "" } );
     await clearSearch();
-    
 
   }
 
