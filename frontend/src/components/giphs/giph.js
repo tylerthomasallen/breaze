@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Buttons from '../favorites/buttons';
+import Buttons from './buttons';
 import GiphLoading from '../loading/giph_loading';
+import PropTypes from 'prop-types';
 
 class Giph extends Component {
   constructor(props) {
@@ -49,35 +50,8 @@ class Giph extends Component {
   }
 }
 
-// const Giph = ( { giph, last, setLoading } ) => {
-  
-//   let img;
-//   if (last === true) {
-//     img = <img src={giph.url} className="giph" alt="giph" onLoad={() => setLoading(false)}/>
-//   } else {
-//     img = <img src={giph.url} className="giph" alt="giph"/>
-//   }
-
-//   return(
-//     <div className="giphs" key={giph.id}>
-      
-//       <div className="giph-section">
-//         <img src={giph.avatar} className="avatar" alt="" />
-//         <h1 className="username">{giph.username}</h1>
-//       </div>
-
-//       {img}
-
-//       <div className="giph-section">
-//         <Buttons giph={giph}/>
-//       </div>
-          
-//       <div className="giph-section">
-//         <h1 className="username">{giph.username}</h1>
-//         <span className="title">{giph.title}</span>
-//       </div>
-//     </div>
-//   )
-// }
+Giph.propTypes = {
+  giph: PropTypes.object,
+}
 
 export default Giph;

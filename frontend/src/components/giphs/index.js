@@ -3,11 +3,7 @@ import { connect } from 'react-redux';
 import { setLoading } from '../../actions/loading_actions';
 import Giph from './giph';
 
-const Giphs = ( { giphs, setLoading } ) => {
-  
-  // if (giphs.length >= 1) {
-  //   setLoading(true);
-  // }
+const Giphs = ( { giphs } ) => {
   
   return(
     <div className="parent">
@@ -20,9 +16,7 @@ const Giphs = ( { giphs, setLoading } ) => {
         }
 
         return <Giph 
-          giph={giph} 
-          last={last} 
-          setLoading={setLoading} 
+          giph={giph}
           key={`${giph.id}-${idx}`}
           />
       })}
@@ -31,13 +25,4 @@ const Giphs = ( { giphs, setLoading } ) => {
   )
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    setLoading: (bool) => dispatch(setLoading(bool))
-  };
-};
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(Giphs)
+export default Giphs;

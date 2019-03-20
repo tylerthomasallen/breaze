@@ -37,7 +37,7 @@ class Buttons extends Component {
   }
 }
 
-const mapStateToProps = ({user}) => {
+const mapStateToProps = ( { user } ) => {
   return {
     user
   }

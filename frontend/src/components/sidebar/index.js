@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SidebarContent from './sidebar_content';
-
+import { CSSTransitionGroup } from 'react-transition-group';
 
 class SidebarContainer extends Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class SidebarContainer extends Component {
     const { sidebarOpen } = this.state;
 
     if (sidebarOpen) {
-      return <SidebarContent closeSidebar={this.closeSidebar}/>
+      return <SidebarContent closeSidebar={this.closeSidebar} key="sidebar-content"/>
     } else {
       return null;
     }
@@ -39,7 +39,13 @@ class SidebarContainer extends Component {
           <i className="fas fa-bars" onClick={this.openSidebar} />
         </div>
 
-        {this.renderSidebar()}
+        <CSSTransitionGroup
+          transitionName="sidebar-background"
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={300}>
+          {this.renderSidebar()}
+        </CSSTransitionGroup>
+
       </div>
     )
   }

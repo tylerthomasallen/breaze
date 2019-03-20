@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Giphs from '../giphs';
 import Title from '../title';
 import Scroll from '../scroll';
+import PropTypes from 'prop-types';
 
 class Search extends Component {
 
@@ -90,6 +91,13 @@ const mapDispatchToProps = dispatch => {
     getSearch: (query, offset) => dispatch(getSearch(query, offset)),
     clearSearch: () => dispatch(clearSearch())
   }
+}
+
+Search.propTypes = {
+  searchResults: PropTypes.array,
+  searchTerm: PropTypes.string,
+  getSearch: PropTypes.func,
+  clearSearch: PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

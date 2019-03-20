@@ -1,34 +1,56 @@
 
 
-@keyframes slideInFromLeft {
+@keyframes slideout {
   0% {
     transform: translateX(-100%);
   }
+
   100% {
     transform: translateX(0);
   }
 }
 
-@keyframes slideInFromRight {
+@keyframes slidein {
   0% {
-    transform: translateX(50%)
+    transform: translateX(0)
   }
-  100% {
-    transform: translate(-100%)
-  }
- }
 
- .sidebar-background {
-   position: absolute;
-   top: 0;
-   bottom: 0;
-   left: 0;
-   right: 0;
-   height: 100vh;
-   width: 100vw;
-   background: rgba(0, 0, 0, 0.5);
-   z-index: 3;
- }
+  100% {
+    transform: translateX(-100%)
+  }
+}
+
+.sidebar-background {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 3;
+}
+
+.sidebar-background-enter {
+  .sidebar-container {
+    animation-duration: .3s;
+    animation-name: slideout;
+    animation-iteration-count: 1;
+  }
+}
+
+.sidebar-background-leave {
+  
+  .sidebar-container {
+    animation-duration: .3s;
+    animation-name: slidein;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards
+  }
+
+  background: transparent;
+}
 
 
 .sidebar-container {
@@ -41,7 +63,6 @@
   max-width: 450px;
   height: 100vh;
   background: white;
-  animation: .3s ease-out slideInFromLeft;
   
   .upper-sidebar {
     display: flex;
@@ -121,5 +142,8 @@
 }
 
 .hide-sidebar {
-  display: none;
+  // transition-property: position;
+  // transition-duration: 3s;
+  // transition-delay: 2s;
+  left: -100%;
 }
