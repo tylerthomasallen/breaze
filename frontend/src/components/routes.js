@@ -18,7 +18,8 @@ const Routes = () => {
   if (noNavPath[window.location.hash] === true) {
     navBar = null;
   }
-  debugger;
+
+  window.scrollTo(0, 0);
 
   return(
     <div className="parent">

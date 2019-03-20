@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { getSearch, clearSearch } from '../../actions/giph_actions';
 import { connect } from 'react-redux';
-import { debounce } from 'lodash';
 import Giphs from '../giphs';
 import Title from '../title';
 import Scroll from '../scroll';
@@ -10,19 +9,24 @@ class Search extends Component {
 
   constructor(props) {
     super(props);
+
+    const { searchTerm } = this.props;
+    debugger;
+    
     this.state = {
-      input: '',
-      lastInput: ''
+      input: searchTerm,
+      lastInput: searchTerm
     }
 
     this.update = this.update.bind(this);
-    this.handleSearch = debounce(this.handleSearch.bind(this), 500);
+    this.handleSearch = this.handleSearch.bind(this);
 
     this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleClear = this.handleClear.bind(this);
   }
 
   update(field) {
-    return ({ currentTarget: { value } }) => this.setState({[field]: value})
+    return ( { currentTarget: { value } } ) => this.setState( { [field]: value } )
   }
 
   handleKeyPress( { key } ) {
@@ -44,6 +48,15 @@ class Search extends Component {
       await getSearch(input, offset);
       await this.setState( { lastInput: input } )
     }
+  }
+
+  async handleClear() {
+    const { clearSearch } = this.props;
+
+    await this.setState( { input: "" } );
+    await this.setState( { lastInput: "" } );
+    await clearSearch();
+    
 
   }
 
@@ -56,8 +69,9 @@ class Search extends Component {
         <Title text="Search" />
 
         <div className="searchbar" onKeyPress={this.handleKeyPress}>
+          <i className="fas fa-search" onClick={this.handleSearch}/>
           <input type="text" placeholder="The world is waiting..." value={input} onChange={this.update("input")} />
-          {/* <i class="fas fa-times-circle" /> */}
+          <i className="fas fa-times-circle" onClick={this.handleClear}/>
         </div>
         <Giphs giphs={searchResults}/>
       </Scroll>
@@ -65,9 +79,10 @@ class Search extends Component {
   }
 }
 
-const mapStateToProps = ( { giphs: { searchResults }} ) => {
+const mapStateToProps = ( { giphs: { searchResults, searchTerm } } ) => {
   return {
-    searchResults
+    searchResults,
+    searchTerm
   }
 }
 

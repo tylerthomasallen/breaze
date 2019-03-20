@@ -4,6 +4,7 @@ export const RECEIVE_TRENDING = 'RECEIVE_TRENDING';
 export const RECEIVE_SEARCH = 'RECEIVE_SEARCH';
 export const RECEIVE_FAVORITES = 'RECEIVE_FAVORITES';
 export const CLEAR_SEARCH = 'CLEAR_SEARCH';
+export const RECEIVE_SEARCH_TERM = 'RECEIVE_SEARCH_TERM';
 
 export const receiveFavorites = payload => ({
   type: RECEIVE_FAVORITES,
@@ -21,6 +22,11 @@ export const receiveTrending = payload => ({
 
 export const receiveSearch = payload => ({
   type: RECEIVE_SEARCH,
+  payload
+})
+
+export const receiveSearchTerm = payload => ({
+  type: RECEIVE_SEARCH_TERM,
   payload
 })
 
@@ -43,6 +49,7 @@ export const getSearch = (query, offset) => dispatch => {
     requestSearch(query, offset).then(res => {
       const { data } = res;
       dispatch(receiveSearch(data));
+      dispatch(receiveSearchTerm(query))
     })
   )
 }

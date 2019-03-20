@@ -1,11 +1,29 @@
+@import './constants.scss';
+
 .searchbar {
+  width: 95vw;
+  max-width: 600px;
+  border: 1px solid lightgray;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  height: 60px;
+  margin: 15px 0;
   
   input {
+    font-size: 24px;
+    width: 100%;
+    height: 95%;
+    border: none;
+    margin-left: 10px;
+  }
+
+  i {
+    cursor: pointer;
     font-size: 20px;
-    padding: 10px;
-    border-radius: 16px;
-    border: 1px solid lightgray;
-    width: 500px;
+    color: $eaze-grey;
     margin: 10px;
   }
 }
