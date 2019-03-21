@@ -106,8 +106,8 @@ router.get('/getfavorites', async (req, res) => {
   const favoritesArray = []
 
   favRes.forEach( ( { avatar, id, title, url, username } ) => {
-    favorites[id] = { avatar, id, title, username }
-    favoritesArray.unshift({ avatar, id, title, username })
+    favorites[id] = { avatar, id, title, username, url }
+    favoritesArray.unshift({ avatar, id, title, username, url })
   })
   
   // const favoritesArray = favRes.map( ( { avatar, id, title, url, username } ) => {
@@ -115,7 +115,6 @@ router.get('/getfavorites', async (req, res) => {
   // })
 
   favorites['array'] = favoritesArray
-  debugger;
 
   res.json( { favorites } );
 

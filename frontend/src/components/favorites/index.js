@@ -4,7 +4,6 @@ import Giphs from '../giphs';
 import Title from '../title';
 
 const Favorites = ( { favorites } ) => {
-  debugger;
 
   return(
     <div className="parent">

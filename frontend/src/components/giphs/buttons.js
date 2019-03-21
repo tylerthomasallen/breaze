@@ -16,7 +16,6 @@ class Buttons extends Component {
     const { user, giph, favorites, addFavorite, deleteFavorite } = this.props;
 
     if (favorites[giph.id]) {
-      debugger;
       await deleteFavorite(user, giph)
     } else {
       await addFavorite(user, giph)
@@ -38,12 +37,11 @@ class Buttons extends Component {
 
   render() {
     const { user: { isAuthenticated } } = this.props;
-    const emptyHeart = <i className="far fa-heart" onClick={this.handleFavorite}/>
 
     if (!isAuthenticated) {
       return(
         <Link to="/login" className="buttons-container">
-          {emptyHeart}
+          <i className="far fa-heart"/>
         </Link>
       )
     } else {

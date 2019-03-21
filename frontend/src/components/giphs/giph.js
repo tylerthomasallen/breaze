@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Buttons from './buttons';
 import GiphLoading from '../loading/giph_loading';
 import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
 
 class Giph extends Component {
   constructor(props) {
@@ -13,12 +14,34 @@ class Giph extends Component {
     }
 
     this.finishLoading = this.finishLoading.bind(this);
-    
+    this.handleLoadingFromCache = this.handleLoadingFromCache.bind(this);
+  }
+
+  componentDidMount() {
+    this.handleLoadingFromCache();
   }
 
   async finishLoading() {
     await this.setState( { loading: false } )
     await this.setState( { loadingClass: "" } )
+  }
+
+  handleLoadingFromCache() {
+    const { loading } = this.state;
+    const { giph: { url } } = this.props;
+
+    if (loading === false) {
+      debugger;
+    }
+
+    if (loading === true) {
+      const giphElement = document.getElementById(url)
+      debugger;
+      
+      if (giphElement !== null && giphElement.complete === true) {
+        this.finishLoading()
+      }
+    }
   }
 
   render() {
@@ -33,8 +56,18 @@ class Giph extends Component {
           <h1 className="username">{giph.username}</h1>
         </div>
 
+
         <GiphLoading loading={loading} />
-        <img src={giph.url} className={`giph ${loadingClass}`} alt="giph" onLoad={this.finishLoading} />
+        {/* <Img
+          src={[giph.url]}
+          loader={<GiphLoading loading={true}/>}
+          /> */}
+        <img 
+          id={giph.url}
+          onLoad={this.finishLoading} 
+          src={giph.url} 
+          className={`giph ${loadingClass}`} alt="giph" 
+          />
         
 
         <div className="giph-section">
