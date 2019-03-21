@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addFavorite, deleteFavorite } from '../../actions/giph_actions'
+import { CSSTransitionGroup } from 'react-transition-group';
 
 class Buttons extends Component {
   constructor(props) {
@@ -24,11 +25,18 @@ class Buttons extends Component {
 
   handleHeart() {
     const { giph, favorites } = this.props;
-    const fullHeart = <i className="fas fa-heart" onClick={this.handleFavorite}/>
+    const fullHeart = <i className="fas fa-heart full-heart" onClick={this.handleFavorite}/>
     const emptyHeart = <i className="far fa-heart" onClick={this.handleFavorite}/>
     
     if (favorites[giph.id]) {
-      return fullHeart
+      return(
+        <CSSTransitionGroup
+          transitionName="heart-transition"
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={300}>
+          {fullHeart}
+        </CSSTransitionGroup>
+      )
     } else {
       return emptyHeart
     }

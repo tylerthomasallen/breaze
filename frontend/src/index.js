@@ -38,12 +38,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     await store.dispatch(getFavorites(id));
 
     // logout our current user if the cookie is expired
-    const currentTime = Date.now() / 1000;
+    // const currentTime = Date.now() / 1000;
 
-    if (decodedUser.exp < currentTime) {
-      store.dispatch(logout());
-      window.location.href = '/login'
-    }
+    // if (decodedUser.exp < currentTime) {
+    //   store.dispatch(logout());
+    //   window.location.href = '/login'
+    // }
 
   } else {
     // configure our redux store with no preloaded state;

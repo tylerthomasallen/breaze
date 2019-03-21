@@ -27,12 +27,12 @@ const Routes = () => {
     <Loading />
   
     <Switch>
-      <Route exact path="/trending" component={Trending} />
+      <Route exact path="/" component={Trending} />
       <Route exact path="/search" component={Search} />
       <Route exact path="/favorites" component={Favorites} />
       <AuthRoute exact path="/login" component={Login} />
       <AuthRoute exact path="/signup" component={Signup} />
-      <Redirect to="/trending" />
+      <Redirect to="/" />
     </Switch>
   
   </div>

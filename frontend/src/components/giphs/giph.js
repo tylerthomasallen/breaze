@@ -58,10 +58,6 @@ class Giph extends Component {
 
 
         <GiphLoading loading={loading} />
-        {/* <Img
-          src={[giph.url]}
-          loader={<GiphLoading loading={true}/>}
-          /> */}
         <img 
           id={giph.url}
           onLoad={this.finishLoading} 
