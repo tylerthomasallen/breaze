@@ -57,15 +57,12 @@ export const getSearch = (query, offset) => dispatch => {
 export const getFavorites = id => async dispatch => {
   const res = await requestGetFavorites(id);
   const { favorites } = res.data;
-  debugger;
   dispatch(receiveFavorites(favorites))
 }
 
 export const addFavorite = (user, giph) => dispatch => (
   requestAddFavorite(user, giph).then(res => {
-    debugger;
     if (res.status === 200) {
-      debugger;
       dispatch(getFavorites(user.id))
     }
   })
@@ -74,7 +71,6 @@ export const addFavorite = (user, giph) => dispatch => (
 export const deleteFavorite = (user, giph) => dispatch => (
   requestDeleteFavorite(user, giph).then(res => {
     if (res.status === 200) {
-      debugger;
       dispatch(getFavorites(user.id))
     }
   })

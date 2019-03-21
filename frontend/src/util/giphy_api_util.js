@@ -18,7 +18,6 @@ export const requestSearch = (query, offset) => {
 };
 
 export const requestAddFavorite = (user, giph) => {
-  debugger
   return axios.post('/api/giphs/addfavorite', {
     params: {
       user,
@@ -28,12 +27,10 @@ export const requestAddFavorite = (user, giph) => {
 };
 
 export const requestGetFavorites = id => {
-  debugger;
   return axios.get(`/api/giphs/getfavorites?id=${id}`)
 };
 
 export const requestDeleteFavorite = (user, giph) => {
-  debugger;
   return axios.delete('/api/giphs/deletefavorite', {
     params: {
       user,

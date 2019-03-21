@@ -4,10 +4,12 @@ import Giphs from '../giphs';
 import Title from '../title';
 
 const Favorites = ( { favorites } ) => {
+  debugger;
+
   return(
     <div className="parent">
       <Title text={'Favorites'} />
-      <Giphs giphs={favorites} />
+      <Giphs giphs={favorites.array} />
     </div>
   )
 }

@@ -102,10 +102,20 @@ router.get('/getfavorites', async (req, res) => {
   const { id } = req.query;
   
   const favRes = await Giph.find( { favorite_id: id } );
-  
-  const favorites = favRes.map( ( { avatar, id, title, url, username } ) => {
-    return { avatar, id, title, url, username }
+  const favorites = {}
+  const favoritesArray = []
+
+  favRes.forEach( ( { avatar, id, title, url, username } ) => {
+    favorites[id] = { avatar, id, title, username }
+    favoritesArray.unshift({ avatar, id, title, username })
   })
+  
+  // const favoritesArray = favRes.map( ( { avatar, id, title, url, username } ) => {
+  //   return { avatar, id, title, url, username }
+  // })
+
+  favorites['array'] = favoritesArray
+  debugger;
 
   res.json( { favorites } );
 
@@ -121,7 +131,6 @@ router.post('/addfavorite',
     const favIds = favRes.map( ( { id } ) => id );
 
     if (favIds.includes(giph.id)) {
-      debugger;
       res.status(400).json('Giph already a favorite')
     }
 
@@ -140,19 +149,20 @@ router.post('/addfavorite',
 router.delete('/deletefavorite',
   passport.authenticate('jwt', { session: false }), 
   async (req, res) => {
-    debugger;
     const user = JSON.parse(req.query.user)
     const giph = JSON.parse(req.query.giph)
-    
-    debugger;
 
     try {
       const giphRes = await Giph.deleteOne( { favorite_id: user.id, id: giph.id } )
       console.log(`Delete count: ${giphRes.deletedCount}`)
-      debugger;
+      
+      if (giphRes.deletedCount === 1) {
+        res.status(200).json('Delete successful')
+      } else {
+        res.status(400).json('Error deleting favorite')
+      }
     } catch (err) {
-      console.log(err);
-      debugger;
+      res.status(400).json('Error deleting favorite')
     }
   }
 )

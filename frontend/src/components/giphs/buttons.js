@@ -8,38 +8,48 @@ class Buttons extends Component {
     super(props)
 
     this.handleFavorite = this.handleFavorite.bind(this);
+    this.handleHeart = this.handleHeart.bind(this);
   }
 
   async handleFavorite(e) {
     e.preventDefault();
     const { user, giph, favorites, addFavorite, deleteFavorite } = this.props;
-    debugger;
 
-    if (!favorites.includes(giph)) {
+    if (favorites[giph.id]) {
       debugger;
-      giph.isFavorite = true;
-      await addFavorite(user, giph)
-    } else {
-      debugger;
-      giph.isFavorite = false;
       await deleteFavorite(user, giph)
+    } else {
+      await addFavorite(user, giph)
     }
   }
 
+  handleHeart() {
+    const { giph, favorites } = this.props;
+    const fullHeart = <i className="fas fa-heart" onClick={this.handleFavorite}/>
+    const emptyHeart = <i className="far fa-heart" onClick={this.handleFavorite}/>
+    
+    if (favorites[giph.id]) {
+      return fullHeart
+    } else {
+      return emptyHeart
+    }
+  }
+
+
   render() {
-    const { user: { isAuthenticated }, giph: { isFavorite } } = this.props;
-    const heartClass = isFavorite === true ? "fas fa-heart" : "far fa-heart"
+    const { user: { isAuthenticated } } = this.props;
+    const emptyHeart = <i className="far fa-heart" onClick={this.handleFavorite}/>
 
     if (!isAuthenticated) {
       return(
         <Link to="/login" className="buttons-container">
-          <i className={heartClass}></i>
+          {emptyHeart}
         </Link>
       )
     } else {
       return(
         <div className="buttons-container">
-          <i className={heartClass} onClick={this.handleFavorite}/>
+          {this.handleHeart()}
         </div>
       )
     }
