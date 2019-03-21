@@ -18,7 +18,6 @@ export const requestLogin = (userData) => {
 };
 
 export const requestCurrentUser = (email) => {
-  debugger;
   return axios.get('/api/users/current', {
     params: {
       email

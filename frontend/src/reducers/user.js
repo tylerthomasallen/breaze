@@ -5,7 +5,6 @@ const userReducer = (state = USER_STATE, action) => {
   switch(action.type) {
 
     case RECEIVE_USER_LOGIN: 
-      debugger;
       return {...action.payload, isAuthenticated: true }
 
     case RECEIVE_USER_LOGOUT:

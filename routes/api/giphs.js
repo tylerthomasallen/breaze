@@ -113,6 +113,7 @@ router.get('/getfavorites', async (req, res) => {
 
 router.post('/addfavorite', 
   passport.authenticate('jwt', { session: false }), 
+  
   async (req, res) => {
     const { giph, user } = req.body.params;
 
@@ -120,31 +121,40 @@ router.post('/addfavorite',
     const favIds = favRes.map( ( { id } ) => id );
 
     if (favIds.includes(giph.id)) {
+      debugger;
       res.status(400).json('Giph already a favorite')
     }
 
-    const newGiph = new Giph({
+    const newGiph = await new Giph({
       favorite_id: user.id,
       ...giph
     });
 
 
     await newGiph.save();
-    res.status(200);
+    res.status(200).json('Favorite added');
 
-    }
-  );
+  }
+);
 
-  router.delete('/deletefavorite',
-    passport.authenticate('jwt', { session: false }), 
-    async (req, res) => {
-      const { giph, user } = req.body.params;
+router.delete('/deletefavorite',
+  passport.authenticate('jwt', { session: false }), 
+  async (req, res) => {
+    debugger;
+    const user = JSON.parse(req.query.user)
+    const giph = JSON.parse(req.query.giph)
+    
+    debugger;
 
-      const giphRes = await Giph.deleteOne( {favorite_id: user_id, id: giph.id } )
-
+    try {
+      const giphRes = await Giph.deleteOne( { favorite_id: user.id, id: giph.id } )
+      console.log(`Delete count: ${giphRes.deletedCount}`)
       debugger;
-      res.status(200);
+    } catch (err) {
+      console.log(err);
+      debugger;
     }
-  )
+  }
+)
 
 module.exports = router;

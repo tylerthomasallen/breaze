@@ -1,4 +1,5 @@
 import { setAuthToken, requestSignup, requestLogin, requestCurrentUser } from '../util/session_api_util';
+import { getFavorites } from './giph_actions';
 
 export const RECEIVE_USER_LOGIN = "RECEIVE_USER_LOGIN";
 export const RECEIVE_USER_LOGOUT = "RECEIVE_USER_LOGOUT";
@@ -35,7 +36,6 @@ export const clearErrors = () => dispatch => (
 
 export const getCurrentUser = (email) => dispatch => (
   requestCurrentUser(email).then(res => {
-    debugger;
     dispatch(receiveCurrentUser( { ...res.data } ) )
   })
 )
@@ -61,6 +61,7 @@ export const login = user => dispatch => (
     localStorage.setItem('id', user.id);
     setAuthToken(token);
     dispatch(loginUser({favorites, email, id}))
+    dispatch(getFavorites(id))
   })
   .catch(err => {
     dispatch(receiveErrors(err.response.data));

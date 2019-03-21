@@ -94,6 +94,22 @@ router.post('/login', (req, res) => {
     })
 })
 
+router.get('/current', async (req, res) => {
+  const { email } = req.query;
+  User.findOne( { email } )
+  .then(user => {
+    if (!user) {
+      errors = 'Incorrect email'
+      return res.status(404).json(errors);
+    }
+    const { id, email } = user;
+    res.json({
+      id,
+      email
+    })
+  })
+})
+
 // router.post('/addfavorite', async (req, res) => {
   
 //   const { user: { id, favorites }, giph } = req.body;
@@ -118,26 +134,5 @@ router.post('/login', (req, res) => {
 //     //   })
 //   }
 // )
-
-router.get('/current', async (req, res) => {
-  const { email } = req.query;
-  debugger;
-  // User.findOne( { email } )
-  const user = await User.findOne( { email } );
-  debugger;
-  // .then(user => {
-  //   debugger;
-  //   if (!user) {
-  //     errors = 'Incorrect email'
-  //     return res.status(404).json(errors);
-  //   }
-  //   const { id, email } = user;
-  //   debugger;
-  //   res.json({
-  //     id,
-  //     email
-  //   })
-  // })
-})
 
 module.exports = router;

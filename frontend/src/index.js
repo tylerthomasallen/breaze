@@ -18,42 +18,38 @@ document.addEventListener('DOMContentLoaded', async () => {
   // FOR KEEPING A USER LOGGED IN
 
   // if a returning user has a session token stored in local storage
-  // if (localStorage.jwtToken) {
+  if (localStorage.jwtToken) {
     
-  //   // set the token as a common header for all axios requests
-  //   setAuthToken(localStorage.jwtToken)
+    // set the token as a common header for all axios requests
+    setAuthToken(localStorage.jwtToken)
 
-  //   // decode the token to obtain the users information
-  //   const decodedUser = jwt_decode(localStorage.jwtToken);
-  //   const { email, id } = decodedUser;
+    // decode the token to obtain the users information
+    const decodedUser = jwt_decode(localStorage.jwtToken);
+    const { email, id } = decodedUser;
 
-  //   // authenticate the current user
-  //   const preloadedState = { user: { isAuthenticated: true } }
+    // authenticate the current user
+    const preloadedState = { user: { isAuthenticated: true } }
 
-  //   // configure our redux store with preloadedState;
-  //   store = configureStore(preloadedState);
-  //   debugger;
+    // configure our redux store with preloadedState;
+    store = configureStore(preloadedState);
 
-  //   // get our current user and their favorites
-  //   await store.dispatch(getCurrentUser(email));
-  //   await store.dispatch(getFavorites(id));
+    // get our current user and their favorites
+    await store.dispatch(getCurrentUser(email));
+    await store.dispatch(getFavorites(id));
 
-  //   // logout our current user if the cookie is expired
-  //   const currentTime = Date.now() / 1000;
+    // logout our current user if the cookie is expired
+    const currentTime = Date.now() / 1000;
 
-  //   if (decodedUser.exp < currentTime) {
-  //     store.dispatch(logout());
-  //     window.location.href = '/login'
-  //   }
+    if (decodedUser.exp < currentTime) {
+      store.dispatch(logout());
+      window.location.href = '/login'
+    }
 
-  // } else {
-
-  //   // configure our redux store with no preloaded state;
-  //   store = configureStore();
+  } else {
+    // configure our redux store with no preloaded state;
+    store = configureStore();
    
-  // }
-
-  store = configureStore();
+  }
 
   // do any actions needed to load the app, i.e. get trending giphs
   await store.dispatch(loadApp());

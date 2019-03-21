@@ -1,20 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addFavorite } from '../../actions/giph_actions'
+import { addFavorite, deleteFavorite } from '../../actions/giph_actions'
 
 class Buttons extends Component {
   constructor(props) {
     super(props)
 
-    this.addFavorite = this.addFavorite.bind(this);
+    this.handleFavorite = this.handleFavorite.bind(this);
   }
 
-  addFavorite(e) {
+  async handleFavorite(e) {
     e.preventDefault();
-    const { user, giph } = this.props;
-    giph.isFavorite = true;
-    this.props.addFavorite(user, giph)
+    const { user, giph, favorites, addFavorite, deleteFavorite } = this.props;
+    debugger;
+
+    if (!favorites.includes(giph)) {
+      debugger;
+      giph.isFavorite = true;
+      await addFavorite(user, giph)
+    } else {
+      debugger;
+      giph.isFavorite = false;
+      await deleteFavorite(user, giph)
+    }
   }
 
   render() {
@@ -30,22 +39,24 @@ class Buttons extends Component {
     } else {
       return(
         <div className="buttons-container">
-          <i className={heartClass} onClick={this.addFavorite}/>
+          <i className={heartClass} onClick={this.handleFavorite}/>
         </div>
       )
     }
   }
 }
 
-const mapStateToProps = ( { user } ) => {
+const mapStateToProps = ( { user, giphs: { favorites } } ) => {
   return {
-    user
+    user,
+    favorites
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return{
-    addFavorite: (user, giph) => dispatch(addFavorite(user, giph))
+    addFavorite: (user, giph) => dispatch(addFavorite(user, giph)),
+    deleteFavorite: (user, giph) => dispatch(deleteFavorite(user, giph))
   }
 }
 

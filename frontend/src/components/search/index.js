@@ -12,7 +12,6 @@ class Search extends Component {
     super(props);
 
     const { searchTerm } = this.props;
-    debugger;
     
     this.state = {
       input: searchTerm,
