@@ -71,7 +71,8 @@ router.post('/login', (req, res) => {
   User.findOne({ email })
     .then(user => {
       if (!user) {
-        errors = 'Incorrect email'
+        errors.email = 'Incorrect email'
+        debugger;
         return res.status(404).json(errors);
       }
 
@@ -88,19 +89,22 @@ router.post('/login', (req, res) => {
               })
             })
           } else {
-            errors = 'Incorrect password'
+            errors.password = 'Incorrect password'
             return res.status(400).json(errors)
           }
         })
+    }).catch(err => {
+      console.log(err);
     })
 })
 
 router.get('/current', async (req, res) => {
   const { email } = req.query;
+  const errors = {}
   User.findOne( { email } )
   .then(user => {
     if (!user) {
-      errors = 'Incorrect email'
+      errors.email = 'Incorrect email'
       return res.status(404).json(errors);
     }
     const { id, email } = user;
@@ -110,30 +114,5 @@ router.get('/current', async (req, res) => {
     })
   })
 })
-
-// router.post('/addfavorite', async (req, res) => {
-  
-//   const { user: { id, favorites }, giph } = req.body;
-//   const newFavorites = [ giph, ...favorites ];
-//   debugger;
-
-//   User.findOneAndUpdate(id,
-//     { $set: { favorites: newFavorites } },
-//     { safe: true, upsert: true, new: true },
-//     (err, user) => {
-//       debugger;
-//       if (err) return res.status(500).json(err);
-//       return res.json({favorites: user.favorites})
-//     })
-    
-//     // User.findByIdAndUpdate(id,
-//     //   { $push: { favorites: giph } },
-//     //   { safe: true, upsert: true, new: true },
-//     //   (err, user) => {
-//     //     if (err) return res.status(500).json(err);
-//     //     return res.json({favorites: user.favorites})
-//     //   })
-//   }
-// )
 
 module.exports = router;

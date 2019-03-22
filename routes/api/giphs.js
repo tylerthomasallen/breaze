@@ -58,7 +58,7 @@ router.get("/trending" , async (req, res) => {
       )
     )
     
-    res.json(formatted)
+    return res.json(formatted)
     
   } catch(err) {
     console.log(err);
@@ -92,7 +92,7 @@ router.get("/search", async (req, res) => {
       )
     )
 
-    res.json(formatted);
+    return res.json(formatted);
   } catch(err) {
     console.log(err);
   }
@@ -140,7 +140,7 @@ router.post('/addfavorite',
 
 
     await newGiph.save();
-    res.status(200).json('Favorite added');
+    return res.status(200).json('Favorite added');
 
   }
 );
@@ -156,12 +156,12 @@ router.delete('/deletefavorite',
       console.log(`Delete count: ${giphRes.deletedCount}`)
       
       if (giphRes.deletedCount === 1) {
-        res.status(200).json('Delete successful')
+        return res.status(200).json('Delete successful')
       } else {
-        res.status(400).json('Error deleting favorite')
+        return res.status(400).json('Error deleting favorite')
       }
     } catch (err) {
-      res.status(400).json('Error deleting favorite')
+      return res.status(400).json('Error deleting favorite')
     }
   }
 )

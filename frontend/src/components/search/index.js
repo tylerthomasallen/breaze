@@ -39,10 +39,11 @@ class Search extends Component {
     const { input, lastInput } = this.state;
     const { getSearch, clearSearch, searchResults } = this.props;
     const offset = searchResults.length;
-
+    
     if (lastInput !== input) {
       await clearSearch();
     }
+    
 
     if (input.length >= 1) {
       await getSearch(input, offset);

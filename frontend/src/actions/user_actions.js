@@ -60,10 +60,11 @@ export const login = user => dispatch => (
     localStorage.setItem('email', user.email);
     localStorage.setItem('id', user.id);
     setAuthToken(token);
-    dispatch(loginUser({favorites, email, id}))
+    dispatch(loginUser( { favorites, email, id } ) )
     dispatch(getFavorites(id))
   })
   .catch(err => {
+    debugger;
     dispatch(receiveErrors(err.response.data));
   })
 )
