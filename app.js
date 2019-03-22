@@ -8,10 +8,14 @@ const db = require('./config/keys').mongoURI;
 const users = require('./routes/api/users');
 const giphs = require('./routes/api/giphs');
 
-// const MongoClient = require('mongodb').MongoClient;
-// const uri = "mongodb+srv://tallen:4Ronnoc@cluster0-oyywn.mongodb.net/test?retryWrites=true";
-// const client = new MongoClient(uri, { useNewUrlParser: true });
-// await client.connect(async res => await console.log('connected'))
+const path = require('path');
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('frontend/build'));
+  app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  })
+}
 
 app.use(passport.initialize());
 require('./config/passport')(passport);
