@@ -1,5 +1,5 @@
 import { setAuthToken, requestSignup, requestLogin, requestCurrentUser } from '../util/session_api_util';
-import { getFavorites } from './giph_actions';
+import { getFavorites, receiveFavorites, clearFavorites } from './giph_actions';
 
 export const RECEIVE_USER_LOGIN = "RECEIVE_USER_LOGIN";
 export const RECEIVE_USER_LOGOUT = "RECEIVE_USER_LOGOUT";
@@ -73,4 +73,5 @@ export const logout = () => dispatch => {
   localStorage.removeItem('email');
   setAuthToken(false);
   dispatch(logoutUser());
+  dispatch(clearFavorites())
 };

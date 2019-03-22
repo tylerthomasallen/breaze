@@ -6,6 +6,7 @@ export const RECEIVE_FAVORITES = 'RECEIVE_FAVORITES';
 export const CLEAR_SEARCH = 'CLEAR_SEARCH';
 export const RECEIVE_SEARCH_TERM = 'RECEIVE_SEARCH_TERM';
 
+
 export const receiveFavorites = payload => ({
   type: RECEIVE_FAVORITES,
   payload
@@ -75,4 +76,10 @@ export const deleteFavorite = (user, giph) => dispatch => (
     }
   })
 )
+
+export const clearFavorites = () => dispatch => {
+  return(
+    dispatch(receiveFavorites( { array: [] } ) )
+  )
+}
 
