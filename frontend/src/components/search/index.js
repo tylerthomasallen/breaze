@@ -48,6 +48,7 @@ class Search extends Component {
     if (input.length >= 1) {
       await getSearch(input, offset);
       await this.setState( { lastInput: input } )
+      document.getElementById('search-input').blur()
     }
   }
 
@@ -69,7 +70,7 @@ class Search extends Component {
         <Title text="Search" />
 
         <div className="searchbar" onKeyPress={this.handleKeyPress}>
-          <i className="fas fa-search" onClick={this.handleSearch}/>
+          <i id="search-input" className="fas fa-search" onClick={this.handleSearch}/>
           <input type="text" placeholder="The world is waiting..." value={input} onChange={this.update("input")} />
           <i className="fas fa-times-circle" onClick={this.handleClear}/>
         </div>
