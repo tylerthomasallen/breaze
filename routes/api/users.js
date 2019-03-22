@@ -72,7 +72,6 @@ router.post('/login', (req, res) => {
     .then(user => {
       if (!user) {
         errors.email = 'Incorrect email'
-        debugger;
         return res.status(404).json(errors);
       }
 

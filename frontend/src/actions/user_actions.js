@@ -64,7 +64,6 @@ export const login = user => dispatch => (
     dispatch(getFavorites(id))
   })
   .catch(err => {
-    debugger;
     dispatch(receiveErrors(err.response.data));
   })
 )

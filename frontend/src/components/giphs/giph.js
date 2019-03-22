@@ -30,13 +30,8 @@ class Giph extends Component {
     const { loading } = this.state;
     const { giph: { url } } = this.props;
 
-    if (loading === false) {
-      debugger;
-    }
-
     if (loading === true) {
       const giphElement = document.getElementById(url)
-      debugger;
       
       if (giphElement !== null && giphElement.complete === true) {
         this.finishLoading()
