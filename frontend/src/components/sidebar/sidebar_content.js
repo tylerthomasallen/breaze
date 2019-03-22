@@ -37,6 +37,10 @@ const SidebarContent = ( { closeSidebar } ) => {
         </div>
 
       </div>
+
+      <div className="sidebar-outer" onClick={closeSidebar}>
+      </div>
+
     </div>
   )
 }

@@ -3,7 +3,7 @@
 .navbar-container {
   width: 100%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   box-shadow: 0 4px 2px -2px lightgrey;
   background: $eaze-blue;
@@ -14,13 +14,8 @@
 
   .title-container {
     color: white;
+
+    margin-right: 40px;
   }
-  
-  // a {
-  //   color: $eaze-blue;
-  //   font-size: 24px;
-  //   cursor: pointer;
-  //   text-decoration: none;
-  // }
 
 }
