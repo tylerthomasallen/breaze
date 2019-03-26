@@ -1,5 +1,6 @@
 import React from 'react';
 import Giph from './giph';
+import PropTypes from 'prop-types';
 
 const Giphs = ( { giphs } ) => {
   
@@ -14,5 +15,9 @@ const Giphs = ( { giphs } ) => {
     </div>
   )
 }
+
+Giphs.propTypes = ({
+  giphs: PropTypes.array.isRequired
+})
 
 export default Giphs;
