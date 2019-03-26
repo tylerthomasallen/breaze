@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Title from '../title';
 import SidebarUser from './sidebar_user';
+import PropTypes from 'prop-types';
 
 const SidebarContent = ( { closeSidebar } ) => {
 
@@ -44,5 +45,9 @@ const SidebarContent = ( { closeSidebar } ) => {
     </div>
   )
 }
+
+SidebarContent.propTypes = ({
+  closeSidebar: PropTypes.func.isRequired
+})
 
 export default SidebarContent;

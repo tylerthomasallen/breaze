@@ -43,7 +43,6 @@ class Search extends Component {
     if (lastInput !== input) {
       await clearSearch();
     }
-    
 
     if (input.length >= 1) {
       await getSearch(input, offset);
@@ -58,7 +57,6 @@ class Search extends Component {
     await this.setState( { input: "" } );
     await this.setState( { lastInput: "" } );
     await clearSearch();
-
   }
 
   render() {

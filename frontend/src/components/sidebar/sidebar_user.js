@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/user_actions';
+import PropTypes from 'prop-types';
 
 const SidebarUser = ( { isAuthenticated, closeSidebar, logout } ) => {
   
@@ -39,6 +40,12 @@ const mapDispatchToProps = dispatch => {
     logout: () => dispatch(logout())
   }
 }
+
+SidebarUser.propTypes = ({
+  isAuthenticated: PropTypes.bool.isRequired,
+  closeSidebar: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(SidebarUser)
 

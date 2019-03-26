@@ -18,7 +18,7 @@ class Scroll extends Component {
   handleScroll(e) {
     const { currentTarget: { innerHeight, scrollY, document: { body: { scrollHeight } } }  } = e;
     
-    if ((innerHeight + scrollY + 1000) >= scrollHeight) {
+    if ((innerHeight + scrollY + 500) >= scrollHeight) {
       this.props.performAction();
     }
   }
