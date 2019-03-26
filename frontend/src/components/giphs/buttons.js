@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addFavorite, deleteFavorite } from '../../actions/giph_actions'
 import { CSSTransitionGroup } from 'react-transition-group';
+import PropTypes from 'prop-types';
 
 class Buttons extends Component {
   constructor(props) {
@@ -75,5 +76,10 @@ const mapDispatchToProps = dispatch => {
     deleteFavorite: (user, giph) => dispatch(deleteFavorite(user, giph))
   }
 }
+
+Buttons.propTypes = ({
+  user: PropTypes.object.isRequired,
+  favorites: PropTypes.object.isRequired
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Buttons);
