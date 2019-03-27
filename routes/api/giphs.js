@@ -79,6 +79,7 @@ router.get("/search", async (req, res) => {
         "api_key": "cCMV85rqh1Z5dmF52GKxGqFlrcFd87R2",
       }
     })
+    
     const searchJSON = await search.json();
     const formatted = [];
     

@@ -38,17 +38,22 @@ class Search extends Component {
   async handleSearch() {
     const { input, lastInput } = this.state;
     const { getSearch, clearSearch, searchResults } = this.props;
-    const offset = searchResults.length;
     
     if (lastInput !== input) {
       await clearSearch();
     }
 
+    
+    const offset = searchResults.length;
+
     if (input.length >= 1) {
       await getSearch(input, offset);
       await this.setState( { lastInput: input } )
-      document.getElementById('search-input').blur()
+      // debugger;
+      // document.getElementById('search-input').blur()
     }
+
+    // debugger;
   }
 
   async handleClear() {
@@ -66,7 +71,6 @@ class Search extends Component {
     return (
       <Scroll performAction={this.handleSearch}>
         <Title text="Search" />
-
         <div className="searchbar" onKeyPress={this.handleKeyPress}>
           <i id="search-input" className="fas fa-search" onClick={this.handleSearch}/>
           <input type="text" placeholder="The world is waiting..." value={input} onChange={this.update("input")} />
