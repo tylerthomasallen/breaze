@@ -8,12 +8,14 @@ const giphReducer = (state = GIPH_STATE, action) => {
       const { trending } = state;
       const newTrending = trending.concat(action.payload);
       return { ...state, trending: newTrending }
-    
-    case RECEIVE_SEARCH:
-      const { searchResults } = state;
-      const newSearch = searchResults.concat(action.payload);
       
-      localStorage.setItem('searchResults', JSON.stringify(newSearch))
+    case RECEIVE_SEARCH:
+      Object.freeze(state);
+      const { searchResults } = state;
+      const newSearch = { ...searchResults, ...action.payload }
+      
+      // localStorage.setItem('searchResults', JSON.stringify(newSearch))
+      debugger;
       
       return { ...state, searchResults: newSearch }
 
@@ -29,7 +31,7 @@ const giphReducer = (state = GIPH_STATE, action) => {
       localStorage.setItem('searchResults', "")
       localStorage.setItem('searchTerm', "")
 
-      return { ...state, searchResults: [], searchTerm: "" }
+      return { ...state, searchResults: {}, searchTerm: "" }
     
     default:
       return  { ...state }

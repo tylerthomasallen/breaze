@@ -9,6 +9,7 @@ import Search from './search';
 import Favorites from './favorites';
 import Login from './user/login'
 import Signup from './user/signup';
+import GiphShow from './giphs/giph_show';
 
 const Routes = () => {
   let navBar = <NavBar />
@@ -30,6 +31,7 @@ const Routes = () => {
       <Route exact path="/" component={Trending} />
       <Route exact path="/search" component={Search} />
       <Route exact path="/favorites" component={Favorites} />
+      <Route exact path="/giph/:giphId" component={GiphShow}/>
       <AuthRoute exact path="/login" component={Login} />
       <AuthRoute exact path="/signup" component={Signup} />
       <Redirect to="/" />

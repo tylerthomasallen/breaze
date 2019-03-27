@@ -81,19 +81,32 @@ router.get("/search", async (req, res) => {
     })
     
     const searchJSON = await search.json();
-    const formatted = [];
-    
-    searchJSON.data.forEach(item => formatted.push({
-      url: item.images.original.url, 
-      id: item.id,
-      title: formattedTitle(item.title),
-      username: getUserInfo(item.user, 'display_name') || 'Anonymous',
-      avatar: getUserInfo(item.user, 'avatar_url') || 'https://i.imgur.com/zPKzLoe.gif'
-        }
-      )
-    )
+    const searchResults = {};
 
-    return res.json(formatted);
+    searchJSON.data.forEach(item => {
+      const formattedItem = { 
+        url: item.images.original.url, 
+        id: item.id,
+        title: formattedTitle(item.title),
+        username: getUserInfo(item.user, 'display_name') || 'Anonymous',
+        avatar: getUserInfo(item.user, 'avatar_url') || 'https://i.imgur.com/zPKzLoe.gif' 
+      }
+
+      searchResults[item.id] = formattedItem;
+    })
+    
+    // searchJSON.data.forEach(item => formatted.push({
+    //   url: item.images.original.url, 
+    //   id: item.id,
+    //   title: formattedTitle(item.title),
+    //   username: getUserInfo(item.user, 'display_name') || 'Anonymous',
+    //   avatar: getUserInfo(item.user, 'avatar_url') || 'https://i.imgur.com/zPKzLoe.gif'
+    //     }
+    //   )
+    // )
+
+
+    return res.json(searchResults);
   } catch(err) {
     console.log(err);
   }
@@ -111,10 +124,6 @@ router.get('/getfavorites', async (req, res) => {
     favoritesArray.unshift({ avatar, id, title, username, url })
   })
   
-  // const favoritesArray = favRes.map( ( { avatar, id, title, url, username } ) => {
-  //   return { avatar, id, title, url, username }
-  // })
-
   favorites['array'] = favoritesArray
 
   res.json( { favorites } );

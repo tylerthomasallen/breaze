@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { addFavorite, deleteFavorite } from '../../actions/giph_actions'
 import { CSSTransitionGroup } from 'react-transition-group';
 import PropTypes from 'prop-types';
+import ShareButton from './share_button';
 
 class Buttons extends Component {
   constructor(props) {
@@ -46,19 +47,24 @@ class Buttons extends Component {
 
   render() {
     const { user: { isAuthenticated } } = this.props;
+    const { giph: { url } } = this.props;
 
     if (!isAuthenticated) {
       return(
-        <Link to="/login" className="buttons-container">
-          <i className="far fa-heart"/>
-          <i className="fas fa-share-square"></i>
-        </Link>
+        <div className="buttons-container">
+          
+          <Link to="/login" className="buttons-container">
+            <i className="far fa-heart"/>
+          </Link>
+
+          <ShareButton url={url} />
+        </div>
       )
     } else {
       return(
         <div className="buttons-container">
           {this.handleHeart()}
-          <i className="fas fa-share-square"></i>
+          <ShareButton url={url} />
         </div>
       )
     }
