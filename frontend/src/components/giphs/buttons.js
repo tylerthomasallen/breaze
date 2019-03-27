@@ -51,12 +51,14 @@ class Buttons extends Component {
       return(
         <Link to="/login" className="buttons-container">
           <i className="far fa-heart"/>
+          <i className="fas fa-share-square"></i>
         </Link>
       )
     } else {
       return(
         <div className="buttons-container">
           {this.handleHeart()}
+          <i className="fas fa-share-square"></i>
         </div>
       )
     }
