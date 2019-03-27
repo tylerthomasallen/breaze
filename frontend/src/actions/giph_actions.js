@@ -49,7 +49,6 @@ export const getSearch = (query, offset) => dispatch => {
   return(
     requestSearch(query, offset).then(res => {
       const { data } = res;
-      debugger;
       dispatch(receiveSearch(data));
       dispatch(receiveSearchTerm(query))
     })
@@ -75,7 +74,6 @@ export const deleteFavorite = (user, giph) => dispatch => (
     if (res.status === 200) {
       dispatch(getFavorites(user.id))
     }
-    debugger;
   })
 )
 

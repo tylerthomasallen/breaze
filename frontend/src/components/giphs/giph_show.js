@@ -18,10 +18,8 @@ class GiphShow extends Component {
 
 const mapStateToProps = ( { giphs: { trending, searchResults, favorites } }, ownProps ) => {
   const { giphId } = ownProps.match.params;
-
-  debugger;
   return {
-    id: ownProps
+    id: giphId
   }
 }
 
