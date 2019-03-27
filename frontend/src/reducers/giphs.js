@@ -5,18 +5,15 @@ const giphReducer = (state = GIPH_STATE, action) => {
   switch(action.type) {
     
     case RECEIVE_TRENDING:
+      Object.freeze(state);
       const { trending } = state;
-      const newTrending = trending.concat(action.payload);
+      const newTrending = { ...trending, ...action.payload }
       return { ...state, trending: newTrending }
       
     case RECEIVE_SEARCH:
       Object.freeze(state);
       const { searchResults } = state;
       const newSearch = { ...searchResults, ...action.payload }
-      
-      // localStorage.setItem('searchResults', JSON.stringify(newSearch))
-      debugger;
-      
       return { ...state, searchResults: newSearch }
 
     case RECEIVE_SEARCH_TERM:

@@ -46,19 +46,31 @@ router.get("/trending" , async (req, res) => {
     })
 
     const trendingJSON = await trending.json()
-    const formatted = [];
+    const trendingResults = {};
+
+    trendingJSON.data.forEach(item => {
+      const formattedItem = { 
+        url: item.images.original.url, 
+        id: item.id,
+        title: formattedTitle(item.title),
+        username: getUserInfo(item.user, 'display_name') || 'Anonymous',
+        avatar: getUserInfo(item.user, 'avatar_url') || 'https://i.imgur.com/zPKzLoe.gif' 
+      }
+
+      trendingResults[item.id] = formattedItem;
+    })
     
-    trendingJSON.data.forEach(item => formatted.push({
-      url: item.images.original.url, 
-      id: item.id,
-      title: formattedTitle(item.title),
-      username: getUserInfo(item.user, 'display_name') || 'Anonymous',
-      avatar: getUserInfo(item.user, 'avatar_url') || 'https://i.imgur.com/zPKzLoe.gif'
-        }
-      )
-    )
+    // trendingJSON.data.forEach(item => formatted.push({
+    //   url: item.images.original.url, 
+    //   id: item.id,
+    //   title: formattedTitle(item.title),
+    //   username: getUserInfo(item.user, 'display_name') || 'Anonymous',
+    //   avatar: getUserInfo(item.user, 'avatar_url') || 'https://i.imgur.com/zPKzLoe.gif'
+    //     }
+    //   )
+    // )
     
-    return res.json(formatted)
+    return res.json(trendingResults)
     
   } catch(err) {
     console.log(err);
@@ -95,16 +107,6 @@ router.get("/search", async (req, res) => {
       searchResults[item.id] = formattedItem;
     })
     
-    // searchJSON.data.forEach(item => formatted.push({
-    //   url: item.images.original.url, 
-    //   id: item.id,
-    //   title: formattedTitle(item.title),
-    //   username: getUserInfo(item.user, 'display_name') || 'Anonymous',
-    //   avatar: getUserInfo(item.user, 'avatar_url') || 'https://i.imgur.com/zPKzLoe.gif'
-    //     }
-    //   )
-    // )
-
 
     return res.json(searchResults);
   } catch(err) {
