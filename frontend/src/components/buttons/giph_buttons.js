@@ -19,6 +19,7 @@ class Buttons extends Component {
     const { user, giph, favorites, addFavorite, deleteFavorite } = this.props;
 
     if (favorites[giph.id]) {
+      debugger;
       await deleteFavorite(user, giph)
     } else {
       await addFavorite(user, giph)

@@ -119,14 +119,10 @@ router.get('/getfavorites', async (req, res) => {
   
   const favRes = await Giph.find( { favorite_id: id } );
   const favorites = {}
-  const favoritesArray = []
 
   favRes.forEach( ( { avatar, id, title, url, username } ) => {
     favorites[id] = { avatar, id, title, username, url }
-    favoritesArray.unshift({ avatar, id, title, username, url })
   })
-  
-  favorites['array'] = favoritesArray
 
   res.json( { favorites } );
 

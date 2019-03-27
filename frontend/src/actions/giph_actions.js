@@ -75,6 +75,7 @@ export const deleteFavorite = (user, giph) => dispatch => (
     if (res.status === 200) {
       dispatch(getFavorites(user.id))
     }
+    debugger;
   })
 )
 
