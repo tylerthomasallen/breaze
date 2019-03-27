@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Giphs from './index';
+import Title from '../title';
 import { connect } from 'react-redux';
 
 class GiphShow extends Component {
@@ -12,14 +13,24 @@ class GiphShow extends Component {
   }
 
   render() {
-   return <Giphs giphs={this.state.test} />
+    const { giph } = this.props; 
+    debugger;
+    return (
+      <div className="parent">
+        <Title text={giph.title} />
+        <Giphs giphs={[giph]} />
+      </div>
+    )
   }
 }
 
 const mapStateToProps = ( { giphs: { trending, searchResults, favorites } }, ownProps ) => {
   const { giphId } = ownProps.match.params;
+  const giph = trending[giphId] || searchResults[giphId] || favorites[giphId];
+
   return {
-    id: giphId
+    id: giphId,
+    giph
   }
 }
 

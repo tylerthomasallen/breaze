@@ -8,8 +8,6 @@ const passport = require('passport');
 const validateSignupInput = require('../../validation/signup');
 const validateLoginInput = require('../../validation/login');
 
-// User creating a new account / signing up
-
 router.post('/signup', (req, res) => {
   const { errors, isValid } = validateSignupInput(req.body);
 
