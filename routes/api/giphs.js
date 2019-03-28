@@ -129,7 +129,7 @@ router.get('/getfavorites', async (req, res) => {
 })
 
 router.post('/addfavorite', 
-  passport.authenticate('jwt', { session: false }), 
+  passport.authenticate('jwt', { session: false }),
   
   async (req, res) => {
     const { giph, user } = req.body.params;
@@ -149,7 +149,6 @@ router.post('/addfavorite',
 
     await newGiph.save();
     return res.status(200).json('Favorite added');
-
   }
 );
 

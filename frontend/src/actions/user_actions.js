@@ -1,5 +1,5 @@
 import { setAuthToken, requestSignup, requestLogin, requestCurrentUser } from '../util/session_api_util';
-import { getFavorites, receiveFavorites, clearFavorites } from './giph_actions';
+import { getFavorites, clearFavorites } from './giph_actions';
 
 export const RECEIVE_USER_LOGIN = "RECEIVE_USER_LOGIN";
 export const RECEIVE_USER_LOGOUT = "RECEIVE_USER_LOGOUT";
