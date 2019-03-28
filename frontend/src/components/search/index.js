@@ -10,10 +10,12 @@ class Search extends Component {
 
   constructor(props) {
     super(props);
+
+    const { searchTerm } = this.props;
     
     this.state = {
-      input: '',
-      lastInput: ''
+      input: searchTerm,
+      lastInput: searchTerm
     }
 
     this.update = this.update.bind(this);

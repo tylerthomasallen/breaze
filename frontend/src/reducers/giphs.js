@@ -13,9 +13,12 @@ const giphReducer = (state = GIPH_STATE, action) => {
     case RECEIVE_SEARCH:
       const { searchResults } = state;
       const newSearch = { ...searchResults, ...action.payload }
+
+      localStorage.setItem('searchResults', JSON.stringify(newSearch))
       return { ...state, searchResults: newSearch }
 
     case RECEIVE_SEARCH_TERM:
+      localStorage.setItem('searchTerm', action.payload)
       return { ...state, searchTerm: action.payload }
 
     case RECEIVE_FAVORITES:

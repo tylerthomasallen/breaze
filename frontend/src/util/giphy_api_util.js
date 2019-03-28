@@ -18,6 +18,7 @@ export const requestSearch = (query, offset) => {
 };
 
 export const requestAddFavorite = (user, giph) => {
+  debugger;
   return axios.post('/api/giphs/addfavorite', {
     params: {
       user,

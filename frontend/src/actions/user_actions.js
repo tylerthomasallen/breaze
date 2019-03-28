@@ -60,6 +60,7 @@ export const login = user => dispatch => (
     localStorage.setItem('email', user.email);
     localStorage.setItem('id', user.id);
     setAuthToken(token);
+    debugger;
     dispatch(loginUser( { favorites, email, id } ) )
     dispatch(getFavorites(id))
   })
