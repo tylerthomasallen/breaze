@@ -42,18 +42,13 @@ class Search extends Component {
     if (lastInput !== input) {
       await clearSearch();
     }
-
     
-    const offset = searchResults.length;
+    const offset = Object.values(searchResults).length;
 
     if (input.length >= 1) {
       await getSearch(input, offset);
       await this.setState( { lastInput: input } )
-      // debugger;
-      // document.getElementById('search-input').blur()
     }
-
-    // debugger;
   }
 
   async handleClear() {
@@ -76,7 +71,7 @@ class Search extends Component {
           <input type="text" placeholder="The world is waiting..." value={input} onChange={this.update("input")} />
           <i className="fas fa-times-circle" onClick={this.handleClear}/>
         </div>
-        <Giphs giphs={searchResults}/>
+        <Giphs giphs={Object.values(searchResults)}/>
       </Scroll>
     )
   }
@@ -97,10 +92,10 @@ const mapDispatchToProps = dispatch => {
 }
 
 Search.propTypes = {
-  searchResults: PropTypes.array,
-  searchTerm: PropTypes.string,
-  getSearch: PropTypes.func,
-  clearSearch: PropTypes.func
+  searchResults: PropTypes.object.isRequired,
+  searchTerm: PropTypes.string.isRequired,
+  getSearch: PropTypes.func.isRequired,
+  clearSearch: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Buttons from './buttons';
+import Buttons from '../buttons/giph_buttons';
 import GiphLoading from '../loading/giph_loading';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
 
 class Giph extends Component {
   constructor(props) {
@@ -51,14 +51,15 @@ class Giph extends Component {
           <h1 className="username">{giph.username}</h1>
         </div>
 
-
-        <GiphLoading loading={loading} />
-        <img 
-          id={giph.url}
-          onLoad={this.finishLoading} 
-          src={giph.url} 
-          className={`giph ${loadingClass}`} alt="giph" 
-          />
+        <Link to={`/giph/${giph.id}`}>
+          <GiphLoading loading={loading} />
+          <img 
+            id={giph.url}
+            onLoad={this.finishLoading} 
+            src={giph.url} 
+            className={`giph ${loadingClass}`} alt="giph" 
+            />
+        </Link>
         
 
         <div className="giph-section">

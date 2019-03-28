@@ -6,7 +6,7 @@ import configureStore from './store';
 import jwt_decode from'jwt-decode';
 
 import { setAuthToken } from './util/session_api_util';
-import { logout, getCurrentUser } from './actions/user_actions';
+import { logout, getCurrentUser, login } from './actions/user_actions';
 
 import '../src/assets/styles/parent.scss';
 import { loadApp } from './actions/loading_actions';
@@ -22,19 +22,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // set the token as a common header for all axios requests
     setAuthToken(localStorage.jwtToken)
+    debugger;
 
     // decode the token to obtain the users information
     const decodedUser = jwt_decode(localStorage.jwtToken);
     const { email, id } = decodedUser;
 
     // authenticate the current user
-    const preloadedState = { user: { isAuthenticated: true } }
+    const preloadedState = { user: { isAuthenticated: true, email, id } }
+    debugger;
 
     // configure our redux store with preloadedState;
     store = configureStore(preloadedState);
 
     // get our current user and their favorites
-    await store.dispatch(getCurrentUser(email));
+    // await store.dispatch(getCurrentUser(email));
     await store.dispatch(getFavorites(id));
 
     // logout our current user if the cookie is expired

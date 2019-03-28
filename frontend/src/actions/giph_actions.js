@@ -79,7 +79,7 @@ export const deleteFavorite = (user, giph) => dispatch => (
 
 export const clearFavorites = () => dispatch => {
   return(
-    dispatch(receiveFavorites( { array: [] } ) )
+    dispatch(receiveFavorites({}))
   )
 }
 

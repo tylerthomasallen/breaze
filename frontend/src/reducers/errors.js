@@ -5,10 +5,10 @@ const errorsReducer = (state = ERRORS_STATE, action) => {
   switch(action.type) {
     
     case RECEIVE_ERRORS:
-      return action.payload
+      return action.payload;
     
     case RECEIVE_CLEAR_ERRORS:
-      return ERRORS_STATE
+      return ERRORS_STATE;
     
     default:
       return state;

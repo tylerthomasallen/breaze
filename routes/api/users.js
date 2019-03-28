@@ -5,12 +5,8 @@ const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 const User = require('../../models/User');
 const passport = require('passport');
-
-// validation imports for Signup and Login
 const validateSignupInput = require('../../validation/signup');
 const validateLoginInput = require('../../validation/login');
-
-// User creating a new account / signing up
 
 router.post('/signup', (req, res) => {
   const { errors, isValid } = validateSignupInput(req.body);
@@ -39,7 +35,7 @@ router.post('/signup', (req, res) => {
               .then(user => {
                 const payload = { id: user.id, email: user.email, favorites: user.favorites };
 
-                jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
+                jwt.sign(payload, keys.secretOrKey, { /*{expiresIn: 3600} */}, (err, token) => {
                   res.json({
                     success: true,
                     token: "Bearer " + token,
@@ -80,7 +76,7 @@ router.post('/login', (req, res) => {
           if (isMatch) {
             const payload = { id: user.id, email: user.email, favorites: user.favorites };
 
-            jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
+            jwt.sign(payload, keys.secretOrKey, { /*{expiresIn: 3600} */ }, (err, token) => {
               res.json({
                 success: true,
                 token: "Bearer " + token,

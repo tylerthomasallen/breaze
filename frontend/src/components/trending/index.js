@@ -5,6 +5,7 @@ import Title from '../title';
 import Giphs from '../giphs';
 import { getTrending } from '../../actions/giph_actions';
 import { debounce } from 'lodash';
+import PropTypes from 'prop-types';
 
 class Trending extends Component {
   constructor(props) {
@@ -16,9 +17,8 @@ class Trending extends Component {
 
   handleGetTrending() {
     const { getTrending, trending } = this.props;
-    const offset = trending.length;
+    const offset = Object.values(trending).length;
     getTrending(offset)
-    debugger;
   }
 
   
@@ -27,7 +27,7 @@ class Trending extends Component {
     return(
       <Scroll performAction={this.handleGetTrending}>
         <Title text="Trending" />
-        <Giphs giphs={trending}/>
+        <Giphs giphs={Object.values(trending)}/>
       </Scroll>
     )
   }
@@ -45,6 +45,10 @@ const mapDispatchToProps = dispatch => {
     getTrending: (offset) => dispatch(getTrending(offset))
   }
 }
+
+Trending.propTypes = ({
+  trending: PropTypes.object.isRequired
+})
 
 export default connect(
   mapStateToProps,

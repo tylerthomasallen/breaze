@@ -4,24 +4,24 @@ import Giphs from '../giphs';
 import Title from '../title';
 import PropTypes from 'prop-types';
 
-const Favorites = ( { array } ) => {
+const Favorites = ( { favorites } ) => {
 
   return(
     <div className="parent">
       <Title text={'Favorites'} />
-      <Giphs giphs={array} />
+      <Giphs giphs={Object.values(favorites)} />
     </div>
   )
 }
 
-const mapStateToProps = ( { giphs: { favorites: { array } } }  ) => {
+const mapStateToProps = ( { giphs: { favorites } }  ) => {
   return {
-    array
+    favorites
   }
 }
 
 Favorites.propTypes = ({
-  array: PropTypes.array.isRequired
+  favorites: PropTypes.object.isRequired
 })
 
 export default connect(mapStateToProps)(Favorites);

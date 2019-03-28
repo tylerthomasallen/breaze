@@ -3,6 +3,7 @@ const router = express.Router();
 const fetch = require("node-fetch");
 const passport = require('passport');
 const Giph = require('../../models/Giph');
+const keys = require('../../config/keys');
 
 // helper functions to format responses from the giph API
 
@@ -41,29 +42,40 @@ router.get("/trending" , async (req, res) => {
     const trending = await fetch(`https://api.giphy.com/v1/gifs/trending?limit=5&offset=${offset}`, {
       headers: {
         "Content-Type": "application/json",
-        "api_key": "cCMV85rqh1Z5dmF52GKxGqFlrcFd87R2",
+        "api_key": keys.giphAPIKey,
       }
     })
 
     const trendingJSON = await trending.json()
-    const formatted = [];
+    const trendingResults = {};
+
+    trendingJSON.data.forEach(item => {
+      const formattedItem = { 
+        url: item.images.original.url, 
+        id: item.id,
+        title: formattedTitle(item.title),
+        username: getUserInfo(item.user, 'display_name') || 'Anonymous',
+        avatar: getUserInfo(item.user, 'avatar_url') || 'https://i.imgur.com/zPKzLoe.gif' 
+      }
+
+      trendingResults[item.id] = formattedItem;
+    })
     
-    trendingJSON.data.forEach(item => formatted.push({
-      url: item.images.original.url, 
-      id: item.id,
-      title: formattedTitle(item.title),
-      username: getUserInfo(item.user, 'display_name') || 'Anonymous',
-      avatar: getUserInfo(item.user, 'avatar_url') || 'https://i.imgur.com/zPKzLoe.gif'
-        }
-      )
-    )
-    
-    return res.json(formatted)
+    return res.json(trendingResults)
     
   } catch(err) {
     console.log(err);
   }
 })
+
+// router.get("/show", async (req, res) => {
+//   let { id } = req.query;
+
+//   try {
+
+//   }
+
+// })
 
 router.get("/search", async (req, res) => {
   let { query, offset } = req.query;
@@ -76,24 +88,27 @@ router.get("/search", async (req, res) => {
     const search = await fetch(`https://api.giphy.com/v1/gifs/search?q=${query}&limit=5&offset=${offset}`, {
       headers: {
         "Content-Type": "application/json",
-        "api_key": "cCMV85rqh1Z5dmF52GKxGqFlrcFd87R2",
+        "api_key": keys.giphAPIKey,
       }
     })
     
     const searchJSON = await search.json();
-    const formatted = [];
-    
-    searchJSON.data.forEach(item => formatted.push({
-      url: item.images.original.url, 
-      id: item.id,
-      title: formattedTitle(item.title),
-      username: getUserInfo(item.user, 'display_name') || 'Anonymous',
-      avatar: getUserInfo(item.user, 'avatar_url') || 'https://i.imgur.com/zPKzLoe.gif'
-        }
-      )
-    )
+    const searchResults = {};
 
-    return res.json(formatted);
+    searchJSON.data.forEach(item => {
+      const formattedItem = { 
+        url: item.images.original.url, 
+        id: item.id,
+        title: formattedTitle(item.title),
+        username: getUserInfo(item.user, 'display_name') || 'Anonymous',
+        avatar: getUserInfo(item.user, 'avatar_url') || 'https://i.imgur.com/zPKzLoe.gif' 
+      }
+
+      searchResults[item.id] = formattedItem;
+    })
+    
+
+    return res.json(searchResults);
   } catch(err) {
     console.log(err);
   }
@@ -104,25 +119,17 @@ router.get('/getfavorites', async (req, res) => {
   
   const favRes = await Giph.find( { favorite_id: id } );
   const favorites = {}
-  const favoritesArray = []
 
   favRes.forEach( ( { avatar, id, title, url, username } ) => {
     favorites[id] = { avatar, id, title, username, url }
-    favoritesArray.unshift({ avatar, id, title, username, url })
   })
-  
-  // const favoritesArray = favRes.map( ( { avatar, id, title, url, username } ) => {
-  //   return { avatar, id, title, url, username }
-  // })
-
-  favorites['array'] = favoritesArray
 
   res.json( { favorites } );
 
 })
 
 router.post('/addfavorite', 
-  passport.authenticate('jwt', { session: false }), 
+  passport.authenticate('jwt', { session: false }),
   
   async (req, res) => {
     const { giph, user } = req.body.params;
@@ -142,7 +149,6 @@ router.post('/addfavorite',
 
     await newGiph.save();
     return res.status(200).json('Favorite added');
-
   }
 );
 

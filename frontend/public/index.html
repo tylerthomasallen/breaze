@@ -28,6 +28,18 @@
     -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <title>Giphagram</title>
+
+    <script>
+      if (window.location.protocol == "http:" && ) {
+        console.log("You are not connected with a secure connection.")
+        console.log("Reloading the page to a Secure Connection...")
+        window.location = document.URL.replace("http://", "https://");
+      }
+  
+      if (window.location.protocol == "https:") {
+        console.log("You are connected with a secure connection.")
+      }
+      </script>
     
   </head>
   <body>

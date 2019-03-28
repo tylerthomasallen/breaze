@@ -30,9 +30,14 @@
 
 .buttons-container {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   text-decoration: none;
   cursor: auto;
+  width: 100%;
+
+  .fa-share-square {
+    color: $eaze-blue;
+  }
 
   i {
     cursor: pointer;
