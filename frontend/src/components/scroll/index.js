@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { debounce } from 'lodash';
 
 class Scroll extends Component {
   constructor(props) {
@@ -18,11 +19,11 @@ class Scroll extends Component {
   handleScroll(e) {
     const { currentTarget: { innerHeight, scrollY, document: { body: { scrollHeight } } }  } = e;
 
-    if (innerHeight !== undefined && scrollY !== undefined && scrollHeight !== undefined) {
-      if ((innerHeight + scrollY) >= scrollHeight) {
-        debugger;
-        this.props.performAction();
-        debugger;
+    if (innerHeight != undefined && scrollY != undefined && scrollHeight != undefined) {
+      const buffer = innerHeight;
+      if ((innerHeight + scrollY + buffer) >= scrollHeight) {
+        const debouncedFunction = debounce(this.props.performAction, 1000);
+        debouncedFunction()
       }
 
     }
