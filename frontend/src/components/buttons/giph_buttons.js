@@ -57,14 +57,14 @@ class Buttons extends Component {
             <i className="far fa-heart"/>
           </Link>
 
-          <ShareButton url={url} />
+          {/* <ShareButton url={url} /> */}
         </div>
       )
     } else {
       return(
         <div className="buttons-container">
           {this.handleHeart()}
-          <ShareButton url={url} />
+          {/* <ShareButton url={url} /> */}
         </div>
       )
     }

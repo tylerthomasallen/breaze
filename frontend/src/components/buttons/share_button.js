@@ -15,7 +15,6 @@ class ShareButton extends Component {
 
     if (result.state == "granted" || result.state == "prompt") {
       const res = await navigator.clipboard.writeText(url);
-      debugger;
     }
   }
 
