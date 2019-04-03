@@ -81,12 +81,12 @@ class UserForm extends Component {
         <p className="errors">{firstError}</p>
     </div>
     )
-
   }
 
+
   render() {
-    const { email, password, errorMessages } = this.state;
-    const { title, type, errors } = this.props;
+    const { email, password } = this.state;
+    const { title, type, changeRoute, message, clearErrors } = this.props;
 
     return(
       <div className="parent user-parent" onKeyPress={this.handleKeyPress}>
@@ -97,7 +97,7 @@ class UserForm extends Component {
         
         <div className="user-title">
           <Title text={'Giphagram'} styles={ { color: "white", fontWeight: 'bold' } }/>
-          <Title text={title} styles={{ 
+          <Title text={title} styles={ { 
             color: 'white', 
             fontFamily: 'Lilita One',
             fontWeight: '800',
@@ -106,8 +106,24 @@ class UserForm extends Component {
             } } />
         </div>
 
-        {this.renderErrors()}
+        <div className="user-message">
+            <Title text={message} styles={ { 
+              color: "white", 
+              fontWeight: "bold", 
+              fontFamily: 'Lilita One',
+              fontWeight: '800',
+              marginLeft: '20px',
+              padding: '0'
+              } }/>
+          
+          <div className="route" onClick={clearErrors}>
+            {changeRoute}
+          </div>
 
+        </div>
+
+      
+        {this.renderErrors()}
 
        
         <div className="user-form" onSubmit={this.submit}>
