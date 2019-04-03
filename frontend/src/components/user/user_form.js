@@ -3,6 +3,7 @@ import Title from '../title';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { clearErrors } from '../../actions/user_actions';
+import { validate } from 'email-validator';
 
 class UserForm extends Component {
   constructor(props) {
@@ -21,7 +22,9 @@ class UserForm extends Component {
   }
 
   update(field) {
-    return ({ currentTarget: { value } }) => this.setState({[field]: value})
+    return ({ currentTarget: { value } }) => {
+      this.setState({[field]: value})
+    }
   }
 
   handleKeyPress( { key } ) {
@@ -46,18 +49,37 @@ class UserForm extends Component {
     const errors = [];
     let valid = true;
 
-    if (email.length <= 0 || !email.includes('@')) {
-      errors.push('The email field is required and must be valid!')
+    if (validate(email) !== true) {
+      errors.push('Please enter a valid e-mail address.')
       valid = false;
     }
 
     if (password.length <= 7) {
-      errors.push('The password field is required and must contain at least eight characters!')
+      errors.push('Please enter a password with at least eight characters.')
       valid = false;
     }
 
     await this.setState( { errorMessages: errors } )
+    
     return valid;
+  }
+
+  renderErrors() {
+    const { errorMessages } = this.state;
+    const { errors } = this.props;
+    const propErrors = Object.values(errors);
+    const jointErrors = [ ...errorMessages, ...propErrors];
+    const firstError = jointErrors[0];
+
+
+    return(
+      <div className="error-messages">
+        {/* {jointErrors.map((error, idx)=> {
+          return <p className="errors" key={`${error}-${idx}`}>{error}</p>
+        })} */}
+        <p className="errors">{firstError}</p>
+    </div>
+    )
 
   }
 
@@ -83,21 +105,14 @@ class UserForm extends Component {
             } } />
         </div>
 
+        {this.renderErrors()}
+
 
        
         <div className="user-form" onSubmit={this.submit}>
           <input type="text" placeholder="Email" required value={email} onChange={this.update("email")} />
           <input type="password" placeholder="Password" required value={password} onChange={this.update("password")} />
           <div className="submit" onClick={this.handleSubmit}>{type}</div>
-        </div>
-
-        <div className="error-messages">
-          {errorMessages.map((error, idx)=> {
-            return <p className="errors" key={`${error}-${idx}`}>{error}</p>
-          })}
-          {Object.values(errors).map((error, idx) => {
-            return <p className="errors" key={`${error}-${idx}`}>{error}</p>
-          })}
         </div>
 
         
