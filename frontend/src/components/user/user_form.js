@@ -107,14 +107,13 @@ class UserForm extends Component {
         </div>
 
         <div className="user-message">
-            <Title text={message} styles={ { 
-              color: "white", 
-              fontWeight: "bold", 
-              fontFamily: 'Lilita One',
-              fontWeight: '800',
-              marginLeft: '20px',
-              padding: '0'
-              } }/>
+          <Title text={message} styles={ { 
+            color: "white", 
+            fontWeight: "bold", 
+            fontFamily: 'Lilita One',
+            fontWeight: '800',
+            padding: '0'
+            } }/>
           
           <div className="route" onClick={clearErrors}>
             {changeRoute}

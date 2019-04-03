@@ -13,7 +13,7 @@ const SignUp = ({signup}) => {
     submit={signup} 
     type={'Sign up'}
     message={'Already have an account?'} 
-    title={'Sign up and change your life'} 
+    title={'Get gihping'} 
     changeRoute={changeRoute} 
     />
   )

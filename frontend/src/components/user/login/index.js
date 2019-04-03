@@ -11,7 +11,7 @@ const Login = ({login}) => {
   return( 
     <UserForm 
     submit={login}
-    title={'Log back in and start giphing'}
+    title={'Log back in, yo'}
     type={'Login'}
     message={'New to Giphys?'} 
     changeRoute={changeRoute} 
