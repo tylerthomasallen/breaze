@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import Buttons from '../buttons/giph_buttons';
 import GiphLoading from '../loading/giph_loading';
 import PropTypes from 'prop-types';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addFavorite, deleteFavorite } from '../../actions/giph_actions'
+import isDoubleTap from "./isDoubleTap"
 
 class Giph extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class Giph extends Component {
     this.renderGiph = this.renderGiph.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.handleLoadingFromCache();
   }
 
@@ -43,20 +44,20 @@ class Giph extends Component {
     }
   }
 
-  async handleFavorite(e) {
-    e.preventDefault();
+  async handleFavorite(event) {
     const { user, giph, favorites, addFavorite, deleteFavorite } = this.props;
-    debugger;
-
-    if (user.isAuthenticated === true) {
       
-      if (favorites[giph.id]) {
-        await deleteFavorite(user, giph)
-      } else {
-        await addFavorite(user, giph)
+    if (isDoubleTap(event)) {
+      if (user.isAuthenticated === true) {
+        
+        if (favorites[giph.id]) {
+          await deleteFavorite(user, giph)
+        } else {
+          await addFavorite(user, giph)
+        }
       }
     }
-
+    
   }
 
   renderGiph() {
@@ -84,7 +85,9 @@ class Giph extends Component {
             onLoad={this.finishLoading} 
             src={giph.url} 
             className={`giph ${loadingClass}`} alt="giph" 
-            onDoubleClick={this.handleFavorite}
+            // onDoubleClick={this.handleFavorite}
+            onClick={this.handleFavorite}
+            // onTouchStart={this.handleFavorite}
             />
         </div>
 
