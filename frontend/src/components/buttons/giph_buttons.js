@@ -34,8 +34,8 @@ class Buttons extends Component {
       return(
         <CSSTransitionGroup
           transitionName="heart-transition"
-          transitionEnterTimeout={300}
-          transitionLeaveTimeout={300}>
+          transitionEnterTimeout={0}
+          transitionLeaveTimeout={0}>
           {fullHeart}
         </CSSTransitionGroup>
       )
