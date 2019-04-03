@@ -14,6 +14,11 @@
   .username {
     font-weight: $title-weight;
     padding-right: 5px;
+    white-space: nowrap;
+  }
+
+  span {
+    margin-left: 3px;
   }
 
   .giph {
@@ -27,7 +32,7 @@
 
   .giph-section {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
     padding: 10px;
 

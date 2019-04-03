@@ -143,6 +143,31 @@
   height: 100%;
 }
 
+@media only screen and (max-width: 1150px) {
+  .sidebar-outer {
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 950px) {
+  .sidebar-outer {
+    width: 50%;
+  }
+}
+
+
+@media only screen and (max-width: 800px) {
+  .sidebar-outer {
+    width: 40%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .sidebar-outer {
+    width: 30%;
+  }
+}
+
 .menu-button {
   display: flex;
   justify-content: center;
