@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { clearErrors } from '../../actions/user_actions';
 import { validate } from 'email-validator';
+import PropTypes from 'prop-types';
 
 class UserForm extends Component {
   constructor(props) {
@@ -120,6 +121,21 @@ class UserForm extends Component {
     )
   }
 }
+
+// submit={signup} 
+// type={'Sign up'}
+// message={'Already have an account?'} 
+// title={'Sign up and change your life'} 
+// changeRoute={changeRoute} 
+
+UserForm.propTypes = ({
+  errors: PropTypes.object.isRequired,
+  clearErrors: PropTypes.func.isRequired,
+  submit: PropTypes.func.isRequired,
+  message: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  changeRoute: PropTypes.object.isRequired
+})
 
 const mapStateToProps = ( { errors } ) => {
   return {
