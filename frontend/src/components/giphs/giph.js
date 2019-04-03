@@ -43,7 +43,6 @@ class Giph extends Component {
   }
 
   async handleFavorite(e) {
-    debugger;
     e.preventDefault();
     const { user, giph, favorites, addFavorite, deleteFavorite } = this.props;
 
