@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Buttons from '../buttons/giph_buttons';
 import GiphLoading from '../loading/giph_loading';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link , withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addFavorite, deleteFavorite } from '../../actions/giph_actions'
 import isDoubleTap from "./isDoubleTap"
@@ -55,6 +55,8 @@ class Giph extends Component {
         } else {
           await addFavorite(user, giph)
         }
+      } else {
+        this.props.history.push('/signup')
       }
     }
     
@@ -63,20 +65,6 @@ class Giph extends Component {
   renderGiph() {
     const { giph, user } = this.props;
     const { loading, loadingClass } = this.state;
-
-    if ((user.isAuthenticated) !== true) {
-      return(
-        <Link to={`signup`}>
-          <GiphLoading loading={loading} />
-          <img 
-            id={giph.url}
-            onLoad={this.finishLoading} 
-            src={giph.url} 
-            className={`giph ${loadingClass}`} alt="giph" 
-            />
-        </Link>
-      )
-    } else {
       return(
         <div>
           <GiphLoading loading={loading} />
@@ -90,10 +78,7 @@ class Giph extends Component {
             // onTouchStart={this.handleFavorite}
             />
         </div>
-
       )
-    }
-
   }
 
   render() {
@@ -159,5 +144,5 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Giph);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Giph));
 
