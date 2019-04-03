@@ -87,7 +87,9 @@ const mapDispatchToProps = dispatch => {
 
 Buttons.propTypes = ({
   user: PropTypes.object.isRequired,
-  favorites: PropTypes.object.isRequired
+  favorites: PropTypes.object.isRequired,
+  addFavorite: PropTypes.func.isRequired,
+  deleteFavorite: PropTypes.func.isRequired
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Buttons);

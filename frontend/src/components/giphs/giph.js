@@ -3,6 +3,8 @@ import Buttons from '../buttons/giph_buttons';
 import GiphLoading from '../loading/giph_loading';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { addFavorite, deleteFavorite } from '../../actions/giph_actions'
 
 class Giph extends Component {
   constructor(props) {
@@ -15,6 +17,7 @@ class Giph extends Component {
 
     this.finishLoading = this.finishLoading.bind(this);
     this.handleLoadingFromCache = this.handleLoadingFromCache.bind(this);
+    this.handleFavorite = this.handleFavorite.bind(this);
   }
 
   componentDidMount() {
@@ -39,19 +42,31 @@ class Giph extends Component {
     }
   }
 
+  async handleFavorite(e) {
+    debugger;
+    e.preventDefault();
+    const { user, giph, favorites, addFavorite, deleteFavorite } = this.props;
+
+    if (favorites[giph.id]) {
+      await deleteFavorite(user, giph)
+    } else {
+      await addFavorite(user, giph)
+    }
+  }
+
   render() {
     const { giph } = this.props;
     const { loading, loadingClass } = this.state;
     
     return(
-      <div className="giphs" key={giph.id}>
+      <div className="giphs" key={giph.id} onDoubleClick={this.handleFavorite}>
         
         <div className="giph-section">
           <img src={giph.avatar} className="avatar" alt="" />
           <h1 className="username">{giph.username}</h1>
         </div>
 
-        <Link to={`/giph/${giph.id}`}>
+        {/* <Link to={`/giph/${giph.id}`}> */}
           <GiphLoading loading={loading} />
           <img 
             id={giph.url}
@@ -59,24 +74,45 @@ class Giph extends Component {
             src={giph.url} 
             className={`giph ${loadingClass}`} alt="giph" 
             />
-        </Link>
+        {/* </Link> */}
         
 
         <div className="giph-section">
           <Buttons giph={giph}/>
         </div>
-            
-        <div className="giph-section">
+
+        <Link to={`/giph/${giph.id}`} className="giph-section">
           <h1 className="username">{giph.username}</h1>
           <span className="title">{giph.title}</span>
-        </div>
+        </Link>
+            
       </div>
     )
   }
 }
 
 Giph.propTypes = {
-  giph: PropTypes.object,
+  giph: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  favorites: PropTypes.object.isRequired,
+  addFavorite: PropTypes.func.isRequired,
+  deleteFavorite: PropTypes.func.isRequired
 }
 
-export default Giph;
+
+const mapStateToProps = ( { user, giphs: { favorites } } ) => {
+  return {
+    user,
+    favorites
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return{
+    addFavorite: (user, giph) => dispatch(addFavorite(user, giph)),
+    deleteFavorite: (user, giph) => dispatch(deleteFavorite(user, giph))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Giph);
+
