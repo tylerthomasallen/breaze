@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // set the token as a common header for all axios requests
     setAuthToken(localStorage.jwtToken)
-    debugger;
 
     // decode the token to obtain the users information
     const decodedUser = jwt_decode(localStorage.jwtToken);
@@ -30,7 +29,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // authenticate the current user
     const preloadedState = { user: { isAuthenticated: true, email, id } }
-    debugger;
 
     // configure our redux store with preloadedState;
     store = configureStore(preloadedState);

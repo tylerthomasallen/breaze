@@ -107,17 +107,32 @@
     align-items: center;
     flex-direction: column;
     padding: 20px 0;
+    height: 30%;
+
+    .user-auth-content {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      flex-direction: column;
+      justify-content: space-evenly;
+    }
 
     a {
       color: white;
-      background-color: $eaze-blue;
+      background-color: #00aae7;
       width: 80%;
+      height: 50px;
       text-align: center;
       margin: 10px;
       border-radius: 3px;
       font-weight: 100;
       font-size: 18px;
-
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
     }
   }
 }

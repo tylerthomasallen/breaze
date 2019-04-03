@@ -14,7 +14,6 @@ class GiphShow extends Component {
 
   render() {
     const { giph } = this.props; 
-    debugger;
     return (
       <div className="parent">
         <Title text={giph.title} />

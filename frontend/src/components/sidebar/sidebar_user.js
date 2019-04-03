@@ -8,7 +8,7 @@ const SidebarUser = ( { isAuthenticated, closeSidebar, logout } ) => {
   
   if (!isAuthenticated) {
     return(
-      <div className="user-auth">
+      <div className="user-auth-content">
         <Link to={'/signup'} onClick={closeSidebar}>
           SIGN UP
         </Link>
@@ -20,7 +20,7 @@ const SidebarUser = ( { isAuthenticated, closeSidebar, logout } ) => {
     )
   } else {
     return(
-      <div className="user-auth">
+      <div className="user-auth-content">
         <a onClick={logout}>
           LOGOUT
         </a>
