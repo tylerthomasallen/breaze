@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Buttons from '../buttons/giph_buttons';
 import GiphLoading from '../loading/giph_loading';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addFavorite, deleteFavorite } from '../../actions/giph_actions'
 
@@ -18,6 +18,7 @@ class Giph extends Component {
     this.finishLoading = this.finishLoading.bind(this);
     this.handleLoadingFromCache = this.handleLoadingFromCache.bind(this);
     this.handleFavorite = this.handleFavorite.bind(this);
+    this.renderGiph = this.renderGiph.bind(this);
   }
 
   componentDidMount() {
@@ -45,27 +46,26 @@ class Giph extends Component {
   async handleFavorite(e) {
     e.preventDefault();
     const { user, giph, favorites, addFavorite, deleteFavorite } = this.props;
+    debugger;
 
-    if (favorites[giph.id]) {
-      await deleteFavorite(user, giph)
-    } else {
-      await addFavorite(user, giph)
+    if (user.isAuthenticated === true) {
+      
+      if (favorites[giph.id]) {
+        await deleteFavorite(user, giph)
+      } else {
+        await addFavorite(user, giph)
+      }
     }
+
   }
 
-  render() {
-    const { giph } = this.props;
+  renderGiph() {
+    const { giph, user } = this.props;
     const { loading, loadingClass } = this.state;
-    
-    return(
-      <div className="giphs" key={giph.id} onDoubleClick={this.handleFavorite}>
-        
-        <div className="giph-section">
-          <img src={giph.avatar} className="avatar" alt="" />
-          <h1 className="username">{giph.username}</h1>
-        </div>
 
-        {/* <Link to={`/giph/${giph.id}`}> */}
+    if ((user.isAuthenticated) !== true) {
+      return(
+        <Link to={`signup`}>
           <GiphLoading loading={loading} />
           <img 
             id={giph.url}
@@ -73,7 +73,50 @@ class Giph extends Component {
             src={giph.url} 
             className={`giph ${loadingClass}`} alt="giph" 
             />
-        {/* </Link> */}
+        </Link>
+      )
+    } else {
+      return(
+        <div>
+          <GiphLoading loading={loading} />
+          <img 
+            id={giph.url}
+            onLoad={this.finishLoading} 
+            src={giph.url} 
+            className={`giph ${loadingClass}`} alt="giph" 
+            onDoubleClick={this.handleFavorite}
+            />
+        </div>
+
+      )
+    }
+
+  }
+
+  render() {
+    const { giph } = this.props;
+    const { loading, loadingClass } = this.state;
+    
+    return(
+      <div className="giphs" key={giph.id}>
+        
+        <div className="giph-section">
+          <img src={giph.avatar} className="avatar" alt="" />
+          <h1 className="username">{giph.username}</h1>
+        </div>
+
+        {this.renderGiph()}
+
+        {/* <Link to={`/giph/${giph.id}`}>
+          <GiphLoading loading={loading} />
+          <img 
+            id={giph.url}
+            onLoad={this.finishLoading} 
+            src={giph.url} 
+            className={`giph ${loadingClass}`} alt="giph" 
+            onDoubleClick={this.handleFavorite}
+            />
+        </Link> */}
         
 
         <div className="giph-section">

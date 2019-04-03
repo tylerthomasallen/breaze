@@ -24,6 +24,14 @@
   .giph {
     width: 100vw;
     max-width: $giph-width;
+
+    cursor: auto;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .giph {
+      cursor: pointer;
+    }
   }
 
   .giph-loading {
